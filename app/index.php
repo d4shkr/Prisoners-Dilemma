@@ -1,8 +1,14 @@
+<?php
+  include_once('game.php');
+  $payoffs = new PayoffMatrix();
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello there</title>
+    <title>Prisoner's dilemma</title>
     <style>
       .center {
         display: block;
@@ -12,9 +18,11 @@
       }
     </style>
   </head>
+
   <body>
-    <p>
-        Hello world!
-    </p>
+    <?php
+      $table = $payoffs->get_html_table();
+      echo $table;
+    ?>
   </body>
 </html>
