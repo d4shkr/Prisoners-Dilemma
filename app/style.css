@@ -1,0 +1,35 @@
+#payoff {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 20%;
+}
+#payoff td, #payoff th {
+    border: 2px solid #ddd;
+    padding: 8px;
+  }
+#payoff th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+#score {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 20%;
+}
+#score td, #score th {
+    border: 2px solid #ddd;
+    padding: 8px;
+  }
+#score tr:nth-child(even){background-color: #f2f2f2;}
+#score tr:hover {background-color: #ddd;}
+#score th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    background-color:cornflowerblue;
+    color: white;
+}
