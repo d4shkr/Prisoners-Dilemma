@@ -33,3 +33,46 @@
     background-color:cornflowerblue;
     color: white;
 }
+
+#action_buttons{
+    height:60px;
+    width:300px;
+}
+
+#cooperate {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    color:whitesmoke;
+    background-color:#04AA6D;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    vertical-align:middle;
+    width: 100px;
+    text-align: center;
+}
+#cooperate :active {
+    color: red;
+}
+
+#betray {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    color:whitesmoke;
+    background-color:crimson;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    vertical-align:middle;
+    width: 100px;
+    text-align: center;
+}
+#betray:active {
+    color:forestgreen;
+}
+
+a.Hidden {
+    text-decoration: none;
+}

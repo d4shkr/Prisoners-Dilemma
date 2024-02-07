@@ -2,6 +2,7 @@
   include_once('game.php');
   $payoffs = new PayoffMatrix();
   $score = new Score();
+  $action_buttons = new ActionButtons();
 
 ?>
 
@@ -23,6 +24,9 @@
       $score->round(-2, -2);
       $score_table = $score->get_html_table();
       echo $score_table;
+      // test ActionButtons class
+      $buttons = $action_buttons->get_html('', ''); # пока передаю пустые ссылки
+      echo $buttons;
     ?>
   </body>
 </html>

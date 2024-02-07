@@ -123,3 +123,23 @@ class Score {
     }
 
 }
+
+class ActionButtons 
+{
+    /*
+    *   Кнопки "Молчать", "Сдать"
+    */
+    function get_html($link_cooperate, $link_betray) { // передаем ссылку для каждой кнопки
+        $result = "<div id='action_buttons'>
+        <a href='?{$link_cooperate}' class=Hidden>
+        <div id='cooperate'>
+            <p> Молчать </p>
+        </div> </a>
+        <a href='?{$link_betray}' class=Hidden>
+        <div id='betray'>
+            <p> Сдать </p>
+        </div> </a>
+        </div>";
+        return $result;
+    }
+}
