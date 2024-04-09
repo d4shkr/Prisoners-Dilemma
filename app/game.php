@@ -5,7 +5,7 @@ class PayoffMatrix {
     *   Матрица выигрышей дилеммы заключенного
     */
 
-    function __construct($C=-1, $B=-2, $c=0, $b=-3)
+    function __construct($C=1, $B=2, $c=0, $b=3)
     {
         // C - payoff if both cooperate
         // B - payoff if both betray
@@ -132,14 +132,46 @@ class ActionButtons
     function get_html($link_cooperate, $link_betray) { // передаем ссылку для каждой кнопки
         $result = "<div id='action_buttons'>
         <a href='?{$link_cooperate}' class=Hidden>
-        <div id='cooperate'>
+        <div class='button' id='cooperate'>
             <p> Молчать </p>
         </div> </a>
         <a href='?{$link_betray}' class=Hidden>
-        <div id='betray'>
+        <div class='button' id='betray'>
             <p> Сдать </p>
         </div> </a>
         </div>";
         return $result;
     }
 }
+
+// class Game
+// class Master
+
+
+// Как может выглядеть SQL-таблица
+// Если по id игроков две таблицы:
+/* 
+    Создать класс Game, объект которого содержит всю информацию об игре: таблицу с раундами Score и PayoffMatrix 
+    И два массива выборов ( Player i choices ) и номер текущего раунда (=размер массива Player 1 choices)
+
+    (этот объект можно будет сунуть в json с помощью json_encode)
+
+
+*/
+
+// Две таблицы
+// 1-я: id Игры и json объекта класса Game => ('gameid', 'json')
+// 2-я для игроков: id игрока в конкретной игре (по нему будем доставать пару [game id, номер игрока]) => ('playerid', {gameid: ..., player: 1 or 2})
+
+// 2-я таблица нужна, чтобы не хранить номер игрока по ссылке чтобы его нельзя было поменять
+// По ссылке будет передаваться 'playerid' и 'choice' и номер раунда (с помощью номера раунда можно проверять что игрок на нужном раунде)
+// по playerid будет доставаться номер игрока (1 or 2) и gameid, а по gameid уже можно будет достать всё состояние игры
+
+// внутри формы тег input type="hidden" номер
+// <form action = "action" method="POST">
+//      <input name = ...>
+
+// if isset($_POST['action']): проверять поле с значением нажатой кнопки и скрытое поле с номером игрока двумя ифами
+
+
+// другой способ: $_SESSION для подсчета количества пользователей
