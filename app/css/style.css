@@ -5,11 +5,14 @@ body {
 }
 
 header {
+    font-size: 150%;
     margin: 0;
     display: block;
     text-align: center;
-    background-color:darkslateblue;
-    color: white;
+    background-color: black;
+    color:white;
+    filter: invert(100%);
+    mix-blend-mode: difference;
   }
   
   
@@ -17,6 +20,7 @@ header {
     max-width: 800px;
     margin: auto;
   }
+
 
 div.for-button{
     text-align: center;
@@ -30,18 +34,20 @@ div.button {
     cursor: pointer;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
     vertical-align:middle;
-    width: 300px;
+    width: 250px;
     text-align: center;
+    font-size: 130%;
 }
 
   
 #start_button {
-    margin: auto;
-    background-color:forestgreen;
+    background-color:white;
+    color:black;
 }
 
 #beb {
-    margin: 10px auto;
-    background-color:lightpink;
+    margin: 20px auto;
+    background-color:white;
+    color:black;
 }
   
