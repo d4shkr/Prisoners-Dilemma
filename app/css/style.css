@@ -18,7 +18,7 @@ header {
     margin: auto;
   }
 
-div.for-butn{
+div.for-button{
     text-align: center;
 }
 
@@ -30,7 +30,7 @@ div.button {
     cursor: pointer;
     box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
     vertical-align:middle;
-    width: 100px;
+    width: 300px;
     text-align: center;
 }
 
@@ -40,4 +40,8 @@ div.button {
     background-color:forestgreen;
 }
 
+#beb {
+    margin: 10px auto;
+    background-color:lightpink;
+}
   

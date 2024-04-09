@@ -159,6 +159,8 @@ class ActionButtons
 
 */
 
+// { game_id : [player1_id, player2_id, [player1_score_cumulative], [player2_score_cumulative], player1_current_choice, player2_current_choice]} // choices
+
 // Две таблицы
 // 1-я: id Игры и json объекта класса Game => ('gameid', 'json')
 // 2-я для игроков: id игрока в конкретной игре (по нему будем доставать пару [game id, номер игрока]) => ('playerid', {gameid: ..., player: 1 or 2})
