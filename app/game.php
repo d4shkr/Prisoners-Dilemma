@@ -129,7 +129,7 @@ class ActionButtons
     /*
     *   Кнопки "Молчать", "Сдать"
     */
-    function get_html($link_cooperate, $link_betray) { // передаем ссылку для каждой кнопки
+    function get_html($link_cooperate, $link_betray) { // 
         $result = "<div id='action_buttons'>
         <a href='?{$link_cooperate}' class=Hidden>
         <div class='button' id='cooperate'>
@@ -143,6 +143,8 @@ class ActionButtons
         return $result;
     }
 }
+
+
 
 // class Game
 // class Master

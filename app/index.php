@@ -22,9 +22,12 @@
         <p>This is a round-based multiplayer Prisoner's Dilemma Game</p>
     </div>  
     </header>
+
     <div class='for-button'> <div class='button' id='start_button'> <p> Start Game </p> </div> </div>
-    <script src="scripts.js"></script>
+
     <div class='for-button'> <div class='button' id='beb'> <p > Тык </p></div> </div>
+
+    <div id='join_link'> </div>
     <script src="scripts.js"></script>
 </body>
 </html>
