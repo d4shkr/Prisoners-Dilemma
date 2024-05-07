@@ -1,5 +1,6 @@
 <?php
   include_once('game.php');
+  include_once('db.php');
   $payoffs = new PayoffMatrix();
   $score = new Score();
   $action_buttons = new ActionButtons();
@@ -16,6 +17,17 @@
 
   <body>
     <?php
+      if (isset($_SESSION['PlayerId'])) {
+
+        // get Game Id
+        $player_id = $_SESSION['PlayerId'];
+        $sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = {$player_id}";
+        mysqli_query($sql_query, $link);
+        
+      } else {
+        echo 'Player Id is incorrect';
+      }
+
       // test PayoffMatrix class
       $table = $payoffs->get_html_table();
       echo $table;

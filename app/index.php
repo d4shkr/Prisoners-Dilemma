@@ -9,8 +9,6 @@
     <title>Prisoner's dilemma</title>
     <link rel="stylesheet" href="css/style.css">
     
-    <!--Linking of jQuery file using CDN-->
-    <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js”></script> 
 </head>
 <body style='background-image:URL(
         https://sun9-39.userapi.com/impg/FfOklB7i7CIUgBhuOhR2go0d31ztGRTNjASTgQ/xWWTfXqB7Z4.jpg?size=1024x683&quality=96&sign=08e4650c29291d9150aff267e6cc4aca&c_uniq_tag=JyPXdr7Bzq2oSWgQUD2iY31QMpxtwiuKUP8EhYEQ1xk&type=album>);
@@ -22,12 +20,12 @@
         <p>This is a round-based multiplayer Prisoner's Dilemma Game</p>
     </div>  
     </header>
-
     <div class='for-button'> <div class='button' id='start_button'> <p> Start Game </p> </div> </div>
 
     <div class='for-button'> <div class='button' id='beb'> <p > Тык </p></div> </div>
 
-    <div id='join_link'> </div>
+    <div id='join_link'><p></p> </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>

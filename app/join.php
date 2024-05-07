@@ -23,16 +23,16 @@ if (isset($_GET['GameId'])) {
 
         // get GameId based on PlayerId
         $player_id = $_SESSION['PlayerId'];
-        $sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = {$player_id}";
+        $sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = '{$player_id}'";
 
         if ($row = mysqli_query($sql_query, $link)->fetch_row()) {
 
             // if GameId is different, remove PlayerId from Players, set GamePhase finished; 
             if ($row[1] != $game_id) {
-                $sql_query = "DELETE FROM Players WHERE PlayerId = {$player_id}";
+                $sql_query = "DELETE FROM Players WHERE PlayerId = '{$player_id}'";
                 mysqli_query($sql_query, $link);
 
-                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = {$row[1]}";
+                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = '{$row[1]}'";
                 mysqli_query($sql_query, $link);
 
             // if GameId is the same, send player to the game page
@@ -49,12 +49,12 @@ if (isset($_GET['GameId'])) {
         if ($row[4] == -1) { 
 
             // initialize player1
-            $sql_query = "UPDATE Dilemma SET Status_Player1 = 0 WHERE GameId = {$game_id}";
+            $sql_query = "UPDATE Dilemma SET Status_Player1 = 0 WHERE GameId = '{$game_id}'";
             mysqli_query($sql_query, $link);
 
             // Add Player 1 to Players table
-            $uuid = UUID::v4();
-            $sql_query = "INSERT INTO Players VALUES ({$uuid}, {$game_id}, 1)";
+            $uuid = bin2hex(random_bytes(18));
+            $sql_query = "INSERT INTO Players VALUES ('{$uuid}', '{$game_id}', 1)";
             mysqli_query($sql_query, $link);
 
             $_SESSION['PlayerId'] = $uuid;
@@ -63,12 +63,12 @@ if (isset($_GET['GameId'])) {
         } else if ($row[5] == -1) { 
 
             // initialize player2
-            $sql_query = "UPDATE Dilemma SET Status_Player2 = 0 WHERE GameId = {$game_id}";
+            $sql_query = "UPDATE Dilemma SET Status_Player2 = 0 WHERE GameId = '{$game_id}'";
             mysqli_query($sql_query, $link);
 
             // Add Player 2 to Players table
-            $uuid = UUID::v4();
-            $sql_query = "INSERT INTO Players VALUES ({$uuid}, {$game_id}, 2)";
+            $uuid = bin2hex(random_bytes(18));
+            $sql_query = "INSERT INTO Players VALUES ('{$uuid}', '{$game_id}', 2)";
             mysqli_query($sql_query, $link);
 
             $_SESSION['PlayerId'] = $uuid;

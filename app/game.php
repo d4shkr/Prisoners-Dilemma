@@ -144,6 +144,24 @@ class ActionButtons
     }
 }
 
+class PayoffHistoryTable 
+{
+    /*
+    *   Таблица с историей изменения очков игроков
+    */
+
+    // Массивы с результатами каждого хода для каждого игрока
+    public $player1_rounds;
+    public $player2_rounds;
+
+    function __construct() {
+        $this->player1_rounds = array();
+        $this->player2_rounds = array();
+    }
+
+    
+}
+
 
 
 // class Game
