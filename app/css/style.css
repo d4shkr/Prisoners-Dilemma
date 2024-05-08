@@ -50,4 +50,15 @@ div.button {
     background-color:white;
     color:black;
 }
-  
+ 
+.collapsed {
+    visibility: collapse;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.for-join-link {
+    text-align: center;
+}

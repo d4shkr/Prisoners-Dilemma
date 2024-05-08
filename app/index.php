@@ -24,7 +24,10 @@
 
     <div class='for-button'> <div class='button' id='beb'> <p > Тык </p></div> </div>
 
-    <div id='join_link'><p></p> </div>
+    <div class='hidden for-join-link' id='for-join-link'>
+        <div class='button'><p> Invite link: </p></div>
+        <a id='join_link' target='_blank'> </a>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="scripts.js"></script>
 </body>

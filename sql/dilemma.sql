@@ -22,6 +22,6 @@ CREATE TABLE Dilemma
 CREATE TABLE Players
 (
     PlayerId VARCHAR(36) NOT NULL PRIMARY KEY,
-    Curr_GameId INT,
+    Curr_GameId VARCHAR(36),
     Curr_PlayerNum INT -- 1 or 2
 );
