@@ -7,7 +7,7 @@
     <meta name="viewport" content=
         "width=device-width, initial-scale=1.0" />
     <title>Prisoner's dilemma</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index.css">
     
 </head>
 <body style='background-image:URL(
@@ -29,6 +29,6 @@
         <a id='join_link' target='_blank'> </a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="scripts.js"></script>
+    <script src="scripts/index.js"></script>
 </body>
 </html>

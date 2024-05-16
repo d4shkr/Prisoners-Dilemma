@@ -1,11 +1,15 @@
 <?php
-  include_once('game.php');
-  include_once('db.php');
-  /*
-  $payoffs = new PayoffMatrix();
-  $score = new Score();
-  $action_buttons = new ActionButtons();
-  */
+include_once('game.php');
+include_once('db.php');
+
+if (!isset($_COOKIE['PlayerId'])) {
+
+  echo "<div class='error'> Player Id is incorrect </div>";
+  exit;
+}
+
+session_start();
+$_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the player decides to clear cookies during the game
 
 ?>
 
@@ -14,7 +18,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Play Prisoner's dilemma</title>
-    <link rel="stylesheet" href="css/style_dilemma.css">
+    <link rel="stylesheet" href="css/dilemma.css">
   </head>
 
   <body>
@@ -82,20 +86,15 @@
         <caption> Score </caption>
             <tr> 
                 <th scope='col'>  </th>
-                <th scope='col'> Player 1 </th>  
-                <th scope='col'> Player 2 </th>  
+                <th scope='col'> You </th>  
+                <th scope='col'> Opponent </th>  
             </tr>
             <tr> 
-                <th scope='row'> Sum </th> 
-                <th scope='row'> 0 </td> 
-                <th scope='row'> 0 </td>
+                <th scope='row'> Score </th> 
+                <th scope='row' id='your_score'> 0 </th> 
+                <th scope='row' id='opponent_score'> 0 </th>
             </tr>
-            <tr>
-                <td> Round 1 </td> <td> 0 </td> <td> 0 </td>
-            </tr>
-            <tr>
-                <td> Round 2 </td> <td> 0 </td> <td> 0 </td>
-            </tr>
+
       </table>
       </div>
   </aside>
@@ -103,41 +102,7 @@
 <footer>
       <p>©Copyright 2024 by dasha. All rights reversed.</p>
 </footer>
-    <?php
-      if (isset($_COOKIE['PlayerId'])) {
-
-        // get Game Id
-        $player_id = $_COOKIE['PlayerId'];
-        $sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = '{$player_id}'";
-        $game_id = (mysqli_query($link, $sql_query)->fetch_row())[0];
-
-        // get Game data
-        $sql_query = "SELECT * FROM Dilemma WHERE GameId = '{$game_id}'";
-        
-        
-      } else {
-        echo "<div class='error'> Player Id is incorrect </div>";
-      }
-
-      // Payoffs
-      $both_cooperate = 1;
-      $both_betray = 2;
-      $cooperate = 0;
-      $betray = 3;
-
-      /*
-      // test PayoffMatrix class
-      $table = $payoffs->get_html_table();
-      echo $table;
-      // test Score class
-      $score->round(1, 1);
-      $score->round(2, 2);
-      $score_table = $score->get_html_table();
-      echo $score_table;
-      // test ActionButtons class
-      $buttons = $action_buttons->get_html('', ''); # пока передаю пустые ссылки
-      echo $buttons;
-      */
-    ?>
-  </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="scripts/dilemma.js"></script>
+</body>
 </html>

@@ -46,6 +46,7 @@ nav, article, aside, footer {
 #for-round {
     vertical-align: middle;
     display: flex;
+    flex: 2;
 }
 
 #round {
