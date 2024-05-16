@@ -28,27 +28,27 @@ div.for-button{
 
 div.button {
     display: inline-block;
-    color:whitesmoke;
+    color:black;
+    background-color: whitesmoke;
     border: 1px solid transparent;
     border-radius: 7px;
     cursor: pointer;
-    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
     vertical-align:middle;
     width: 250px;
     text-align: center;
     font-size: 130%;
 }
 
-  
 #start_button {
-    background-color:white;
-    color:black;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
 }
-
 #beb {
     margin: 20px auto;
-    background-color:white;
-    color:black;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+}
+
+#invite {
+    background-color: rgba(240, 248, 255, 0);
 }
  
 .collapsed {
@@ -61,4 +61,5 @@ div.button {
 
 .for-join-link {
     text-align: center;
+    background-color:rgba(250, 250, 244, 0.781);
 }

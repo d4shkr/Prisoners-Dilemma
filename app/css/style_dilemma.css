@@ -1,44 +1,153 @@
-
-
-#payoff {
+body {
     font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 20%;
 }
-#payoff td, #payoff th {
+
+h1, h2, h3 {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+/* header layout */
+
+nav, article, aside, footer {
+    background-color: #F5DDDD;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1%;
+  }
+
+  nav {
+    height: 50px;
+    background-color: #53687E;
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  nav ul {
+    padding: 0;
+    list-style-type:none;
+    flex: 2;
+    display: flex;
+  }
+  
+  nav li {
+    display: inline;
+    text-align: right;
+    flex: 1;
+  }
+  
+  nav a {
+    display: inline-block;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #FFC53A;
+  }
+
+#for-round {
+    vertical-align: middle;
+    display: flex;
+}
+
+#round {
+    display: table;
+    text-transform: uppercase;
+    color: #FFC53A;
+    border: 1px solid;
+    border-radius: 0 10px;
+}
+
+#round h2 {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 10px 20px;
+}
+
+
+/* main layout */
+main {
+    display: flex;
+  }
+  
+  article {
+    flex: 4;
+  }
+  
+  aside {
+    flex: 2.2;
+    margin-left: 10px;
+    background-color: #EDADC7;
+  }
+  
+  aside li {
+    padding-bottom: 10px;
+  }
+
+  footer {
+    margin-top: 10px;
+  }
+
+/* Payoff Matrix */
+td, th {
     border: 2px solid #ddd;
     padding: 8px;
-  }
+}
+
+#payoff td {
+    background-color:lavenderblush;
+}
+
+table {
+    text-align: center;
+    margin: auto;
+}
+
+caption {
+    color:#912F56;
+    text-transform: uppercase;
+}
+
+#for-score-table {
+    text-align: center;
+    margin-top: auto;
+}
+#payoff {
+    border-collapse: collapse;
+    width: 20%;
+    margin-top: 20px;
+}
+
 #payoff th {
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: left;
-    background-color: #04AA6D;
+    background-color: #912F56;
     color: white;
 }
 
+/* score table */
+
 #score {
-    font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 20%;
+    width: 80%;
+    margin-top: 20px;
+    text-align: center;
 }
-#score td, #score th {
-    border: 2px solid #ddd;
-    padding: 8px;
-  }
-#score tr:nth-child(even){background-color: #f2f2f2;}
-#score tr:hover {background-color: #ddd;}
+
 #score th {
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: left;
-    background-color:cornflowerblue;
+    text-align: center;
+    background-color: #912F56;
     color: white;
 }
+#score tr {background-color: #ece0e8;}
+#score tr:nth-child(even){background-color: #f2f2f2;}
+
+/* buttons */
 
 #action_buttons{
-    height:60px;
-    width:300px;
+    text-align: center;
 }
 
 div.button {
@@ -54,20 +163,56 @@ div.button {
     text-align: center;
 }
 
-#cooperate {
-    background-color:#04AA6D;
+div.error {
+    background-color:rgb(222, 29, 29);
+    color: white;
+    text-align: center;
 }
-#cooperate :active {
-    color: red;
+
+#cooperate {
+    background-color:#7dca6e;
+}
+#cooperate:active {
+    background-color: #5eaa4f;
 }
 
 #betray {
-    background-color:crimson;
+    background-color: #fb89b7;
 }
 #betray:active {
-    color:forestgreen;
+    background-color:#d86a98;
 }
 
 a.Hidden {
     text-decoration: none;
+}
+
+
+/* old */
+
+div.top-bar {
+    text-align: center;
+    margin-top: 0;
+}
+
+div.topbar-logo {
+    max-width: 800px;
+    margin: auto;
+    background-color: #53687E;
+}
+
+ul.topbar-menu-container {
+    float: right;
+}
+
+div.main-page {
+    background-color: #F5DDDD;
+    width: 100%;
+    height: 100%;
+}
+
+div.content {
+    text-align: center;
+    width: 80%;
+    height: 80%;
 }

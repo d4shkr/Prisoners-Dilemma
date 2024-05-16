@@ -5,25 +5,26 @@ if (isset($_GET['GameId'])) {
     
     $game_id = $_GET['GameId'];
 
-    if (isset($_SESSION['PlayerId'])) {
+    if (isset($_COOKIE['PlayerId'])) {
 
         // get GameId based on PlayerId
-        $player_id = $_SESSION['PlayerId'];
+        $player_id = $_COOKIE['PlayerId'];
         $sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = '{$player_id}'";
 
         if ($row = mysqli_query($link, $sql_query)->fetch_row()) {
 
             // if GameId is different, remove PlayerId from Players, set GamePhase finished; 
-            if ($row[1] != $game_id) {
+            if ($row[0] != $game_id) {
                 $sql_query = "DELETE FROM Players WHERE PlayerId = '{$player_id}'";
                 mysqli_query($link, $sql_query);
 
-                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = '{$row[1]}'";
+                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = '{$row[0]}'";
                 mysqli_query($link, $sql_query);
 
             // if GameId is the same, send player to the game page
             } else {
                 header("Location: dilemma.php");
+                exit;
             }
         }
     }
@@ -43,7 +44,8 @@ if (isset($_GET['GameId'])) {
             $sql_query = "INSERT INTO Players VALUES ('{$uuid}', '{$game_id}', 1)";
             mysqli_query($link, $sql_query);
 
-            $_SESSION['PlayerId'] = $uuid;
+            //$_SESSION['PlayerId'] = $uuid;
+            setcookie('PlayerId', $uuid, time() + 86400); // expires in a day
             header("Location: dilemma.php"); // send player to the game page
 
         } else if ($row[6] == -1) { 
@@ -57,18 +59,19 @@ if (isset($_GET['GameId'])) {
             $sql_query = "INSERT INTO Players VALUES ('{$uuid}', '{$game_id}', 2)";
             mysqli_query($link, $sql_query);
 
-            $_SESSION['PlayerId'] = $uuid;
+            //$_SESSION['PlayerId'] = $uuid;
+            setcookie('PlayerId', $uuid, time() + 86400); // expires in a day
             header("Location: dilemma.php"); // send player to the game page
 
         } else {
-            echo "Game is full.";
+            echo "<div class='error'> Game is full. </div>";
         }
         
     } else {
-        echo "Game Id is incorrect.";
+        echo "<div class='error'> Game Id is incorrect. </div>";
     }
 } else {
-    echo "No Game Id provided.";
+    echo "<div class='error'> No Game Id provided. </div>";
 }
 ?>
 <!DOCTYPE html>
@@ -80,7 +83,7 @@ if (isset($_GET['GameId'])) {
     <meta name="viewport" content=
         "width=device-width, initial-scale=1.0" />
     <title>Join Prisoner's dilemma</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_dilemma.css">
     
 </head>
 </html>
