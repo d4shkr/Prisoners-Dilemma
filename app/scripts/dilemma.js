@@ -1,4 +1,4 @@
-function update_scoretable() {
+function update_scoretable() { // this function updates Score table on dilemma.php page with data from the database
     $.post(
         "php_functions/get_scoretable_data.php",
         {}, // send nothing to the script
@@ -34,3 +34,27 @@ function update_scoretable() {
 }
 
 update_scoretable()
+
+// when the player clicks "Cooperate" button:
+$("#cooperate").on("click", () => {
+    $.post(
+        "php_functions/choose_cooperate.php",
+        {}, // send nothing to the script
+        function () { 
+            // Set Waiting message visible (now that the player has made their choice, they're waiting for the other player)
+            $("#waiting").removeClass("hidden");
+        }
+    );
+})
+
+// when the player clicks "Betray" button:
+$("#betray").on("click", () => {
+    $.post(
+        "php_functions/choose_betray.php",
+        {}, // send nothing to the script
+        function () { 
+            // Set Waiting message visible (now that the player has made their choice, they're waiting for the other player)
+            $("#waiting").removeClass("hidden");
+        }
+    );
+})

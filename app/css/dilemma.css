@@ -188,6 +188,20 @@ a.Hidden {
     text-decoration: none;
 }
 
+/* waiting message */
+
+.collapsed {
+    visibility: collapse;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.for-waiting-message {
+    color:#53687E;
+    margin-top: 2px;
+}
 
 /* old */
 

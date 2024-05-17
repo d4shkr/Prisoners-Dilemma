@@ -75,6 +75,10 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
         </div>
       </div>
 
+      <!-- Waiting message -->
+      <div class='hidden for-waiting-message' id='waiting'>
+        Waiting for other player to choose...
+      </div>
 
       </article>
 
