@@ -1,4 +1,5 @@
 <?php
+// Connect to database
 include("../db.php");
 
 // get Game Id from Player ID

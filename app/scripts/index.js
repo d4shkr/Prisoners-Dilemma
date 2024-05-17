@@ -1,3 +1,4 @@
+// Functions that displays a link to join a game when the player clicks on Start button
 $("#start_button").on("click", () => {
     $.post(
         "php_functions/create_game.php",

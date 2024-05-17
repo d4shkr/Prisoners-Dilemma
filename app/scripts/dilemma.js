@@ -1,4 +1,5 @@
-function update_scoretable() { // this function updates Score table on dilemma.php page with data from the database
+// This function updates Score table on dilemma.php page with data from the database
+function update_scoretable() { 
     $.post(
         "php_functions/get_scoretable_data.php",
         {}, // send nothing to the script
@@ -28,6 +29,7 @@ function update_scoretable() { // this function updates Score table on dilemma.p
                 </tr>`
             }
 
+            // insert html code for the score table
             $("#score").html(table_str);
         }
     );
@@ -58,3 +60,6 @@ $("#betray").on("click", () => {
         }
     );
 })
+
+// set buttons invisible if a player has made their choice
+
