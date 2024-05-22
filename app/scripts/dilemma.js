@@ -35,7 +35,58 @@ function update_scoretable() {
     );
 }
 
-update_scoretable()
+// This function updates button area based on the player's choice
+function update_button_area() {
+    $.post(
+        "php_functions/get_player_choice.php",
+        {}, // send nothing to the script
+        function (choice) { // on response from POST
+            switch (choice) {
+                // if the player didn't choose yet: display the action buttons, hide the waiting message
+                case 'unknown':
+                    $("#action_buttons").removeClass("collapsed");
+                    $("#waiting").addClass("collapsed");
+                    break;
+                // if the player chose to betray: hide the action buttons, update and display the waiting message
+                case 'betrayed':
+                    $("#action_buttons").addClass("collapsed");
+                    $("#waiting").html("You chose to betray. Waiting for other player...");
+                    $("#waiting").removeClass("collapsed");
+                    break;
+                // if the player chose to cooperate: hide the action buttons, update and display the waiting message
+                case 'cooperated':
+                    $("#action_buttons").addClass("collapsed");
+                    $("#waiting").html("You chose to cooperate. Waiting for other player...");
+                    $("#waiting").removeClass("collapsed");
+                    break;
+                // if the game is finished: hide the action buttons and notify the player
+                case 'finished':
+                    $("#action_buttons").addClass("collapsed");
+                    $("#waiting").html("Game Over... bye-bye!");
+                    $("#waiting").removeClass("collapsed");
+            }
+        }
+    )
+}
+
+function update_round() {
+    $.post(
+        "php_functions/get_round.php",
+        {}, // send nothing to the script
+        function (round) { // on response from POST
+            $("#round").html(`<h2> Round ${round} </h2>`);
+        }
+    )
+}
+// This function calls all the update functions
+function update_all() {
+    update_scoretable();
+    update_button_area();
+    update_round();
+}
+
+update_all()
+setInterval(update_all, 1000) // update all website elements every second
 
 // when the player clicks "Cooperate" button:
 $("#cooperate").on("click", () => {
@@ -43,8 +94,8 @@ $("#cooperate").on("click", () => {
         "php_functions/choose_cooperate.php",
         {}, // send nothing to the script
         function () { 
-            // Set Waiting message visible (now that the player has made their choice, they're waiting for the other player)
-            $("#waiting").removeClass("hidden");
+            // Game state has changed (probably). Update visuals accordingly.
+            update_all();
         }
     );
 })
@@ -55,11 +106,9 @@ $("#betray").on("click", () => {
         "php_functions/choose_betray.php",
         {}, // send nothing to the script
         function () { 
-            // Set Waiting message visible (now that the player has made their choice, they're waiting for the other player)
-            $("#waiting").removeClass("hidden");
+            // Game state has changed (probably). Update visuals accordingly.
+            update_all();
         }
     );
 })
-
-// set buttons invisible if a player has made their choice
 

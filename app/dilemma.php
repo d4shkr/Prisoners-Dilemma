@@ -11,6 +11,8 @@ if (!isset($_COOKIE['PlayerId'])) {
 session_start();
 $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the player decides to clear cookies during the game
 
+ // TODO: check if PlayerId and Curr_GameId are valid
+
 ?>
 
 <!DOCTYPE html>
@@ -76,7 +78,7 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
       </div>
 
       <!-- Waiting message -->
-      <div class='hidden for-waiting-message' id='waiting'>
+      <div class='collapsed for-waiting-message' id='waiting'>
         Waiting for other player to choose...
       </div>
 
