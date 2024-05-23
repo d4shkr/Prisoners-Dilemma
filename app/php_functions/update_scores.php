@@ -2,7 +2,7 @@
 // Set payoffs in the current round based on choices made
 
 // get total scores, status values, payoff histories and round number from the table 
-$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2, CurrentRound, MaxRounds, GamePhase FROM Dilemma WHERE GameId = '{$game_id}'";
+$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2, CurrentRound, MaxRounds, GamePhase, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Dilemma WHERE GameId = '{$game_id}'";
 
 $res = mysqli_query($link, $sql_query)->fetch_object();
 
@@ -14,6 +14,10 @@ $payoff_history1 = json_decode($res->PayoffHistory_Player1);
 $payoff_history2 = json_decode($res->PayoffHistory_Player2);
 $curr_round = $res->CurrentRound;
 $max_round = $res->MaxRounds;
+$both_betray = $res->BothBetrayPayoff;
+$both_cooperate = $res->BothCooperatePayoff;
+$was_betrayed = $res->WasBetrayedPayoff;
+$has_betrayed = $res->HasBetrayedPayoff;
 
 if ($res->GamePhase == 'Finished') {
     exit;
@@ -30,30 +34,36 @@ if ($curr_round == $max_round) {
     mysqli_query($link, $sql_query);
 }
 
+// Constructing the messages
+$both_cooperated_message = "You both cooperated! " . ($both_cooperate == 0 ? "The score doesn't change." : "You " . ($both_cooperate > 0 ? "gain" : "lose") . " {$both_cooperate} point" . (abs($both_cooperate) > 1 ? "s each." : " each."));
+$both_betrayed_message = "You betrayed each other! " . ($both_betray == 0 ? "The score doesn't change." : "You both " . ($both_betray > 0 ? "gain" : "lose") . " {$both_betray} point" . (abs($both_betray) > 1 ? "s." : "."));
+$has_betrayed_message = "You betrayed your opponent!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score doesn't change." : ($has_betrayed == 0 ? "" : " You " . ($has_betrayed > 0 ? "gain" : "lose") . " {$has_betrayed} point" . (abs($has_betrayed) > 1 ? "s." : ".")) . ($was_betrayed == 0 ? "" : " They " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed} point" . (abs($was_betrayed) > 1 ? "s." : ".")));
+$was_betrayed_message = "You were betrayed!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score doesn't change." : ($was_betrayed == 0 ? "" : " You " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed} point" . (abs($was_betrayed) > 1 ? "s." : ".")) . ($has_betrayed == 0 ? "" : " Your opponent " . ($has_betrayed > 0 ? "gains" : "loses") . " {$has_betrayed} point" . (abs($has_betrayed) > 1 ? "s." : ".")));
+
 // if both cooperate:
 if ($status1 == 2 && $status2 == 2) {
-    $payoff1 = -1;
-    $payoff2 = -1;
-    $message1 = "You both cooperated! You lose 1 point each.";
-    $message2 = "You both cooperated! You lose 1 point each.";
+    $payoff1 = $both_cooperate;
+    $payoff2 = $both_cooperate;
+    $message1 = $both_cooperated_message;
+    $message2 = $both_cooperated_message;
 // if both betray:
 } else if ($status1 == 1 && $status2 == 1) {
-    $payoff1 = -2;
-    $payoff2 = -2;
-    $message1 = "You betrayed each other! You both lose 2 points.";
-    $message2 = "You betrayed each other! You both lose 2 points.";
+    $payoff1 = $both_betray;
+    $payoff2 = $both_betray;
+    $message1 = $both_betrayed_message;
+    $message2 = $both_betrayed_message;
 // if player 1 betrays and player 2 cooperates:
 } else if ($status1 == 1 && $status2 == 2) {
-    $payoff1 = 0;
-    $payoff2 = -3;
-    $message1 = "You betrayed your opponent! They lose 3 points.";
-    $message2 = "You were betrayed! You lose 3 points.";
+    $payoff1 = $has_betrayed;
+    $payoff2 = $was_betrayed;
+    $message1 = $has_betrayed_message;
+    $message2 = $was_betrayed_message;
 // if player 1 cooperates and player 2 betrays:
 } else if ($status1 == 2 && $status2 == 1) {
-    $payoff1 = -3;
-    $payoff2 = 0;
-    $message1 = "You were betrayed! You lose 3 points.";
-    $message2 = "You betrayed your opponent! They lose 3 points.";
+    $payoff1 = $was_betrayed;
+    $payoff2 = $has_betrayed;
+    $message1 = $was_betrayed_message;
+    $message2 = $has_betrayed_message;
 }
 
 // Add payoffs to total scores

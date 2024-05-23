@@ -29,11 +29,11 @@ if (isset($_GET['GameId'])) {
         }
     }
 
-    $sql_query = "SELECT * FROM Dilemma WHERE GameId = '{$game_id}'"; // check if this game id exists
-    if ($row = mysqli_query($link, $sql_query)->fetch_row()) {
+    $sql_query = "SELECT Status_Player1, Status_Player2 FROM Dilemma WHERE GameId = '{$game_id}'"; // check if this game id exists
+    if ($row = mysqli_query($link, $sql_query)->fetch_object()) {
 
         // Check if game is available (if Status_Player == -1)
-        if ($row[5] == -1) { 
+        if ($row->Status_Player1 == -1) { 
 
             // initialize player1
             $sql_query = "UPDATE Dilemma SET Status_Player1 = 0 WHERE GameId = '{$game_id}'";
@@ -48,7 +48,7 @@ if (isset($_GET['GameId'])) {
             setcookie('PlayerId', $uuid, time() + 86400); // expires in a day
             header("Location: dilemma.php"); // send player to the game page
 
-        } else if ($row[6] == -1) { 
+        } else if ($row->Status_Player2 == -1) { 
 
             // initialize player2
             $sql_query = "UPDATE Dilemma SET Status_Player2 = 0 WHERE GameId = '{$game_id}'";

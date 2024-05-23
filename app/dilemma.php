@@ -1,5 +1,4 @@
 <?php
-include_once('game.php');
 include_once('db.php');
 
 if (!isset($_COOKIE['PlayerId'])) {
@@ -42,11 +41,28 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
         </p>
 
       <!-- Payoff Matrix -->
+      <!-- Создаем таблицу вида:
+        |            |    Молчать   |     Сдать      |
+        |  Молчать   |    (-1,-1)   |    (-3, 0)     |
+        |  Сдать     |    (0, -3)   |    (-2,-2)     |
+      -->
       <!--
         <p> Corresponding payoffs are determined as follows: For one shot of the game, if both players compete, they both get a payoff equal to -2.
           If both cooperate, they both get -1. If one cooperates and the other competes, the first one gets -3 and the second gets 0. </p>
         -->
-      <table id='payoff'> 
+        <?php
+          // get Game Id from Player ID
+          $player_id = $_SESSION['PlayerId'];
+          $sql_query = "SELECT Curr_GameId, Curr_PlayerNum FROM Players WHERE PlayerId = '{$player_id}'";
+          $res = mysqli_query($link, $sql_query)->fetch_object();
+
+          $game_id = $res->Curr_GameId;
+
+          // Get payoffs
+          $sql_query = "SELECT BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Dilemma WHERE GameId = '{$game_id}'";
+          $res = mysqli_query($link, $sql_query)->fetch_object();
+
+          echo "<table id='payoff'> 
             <caption> Payoff matrix </caption>
             <tr> 
                 <th scope='col'> Pl1, Pl2 </th>
@@ -55,16 +71,16 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
             </tr>
             <tr> 
                 <th scope='row'> Cooperate </th> 
-                <td> -1, -1</td> 
-                <td> -3, 0 </td>
+                <td> {$res->BothCooperatePayoff}, {$res->BothCooperatePayoff}</td> 
+                <td> {$res->WasBetrayedPayoff}, {$res->HasBetrayedPayoff}</td>
             </tr>
             <tr> 
                 <th scope='row'> Betray </th> 
-                <td> 0, -3</td> 
-                <td> -2, -2</td> 
+                <td> {$res->HasBetrayedPayoff}, {$res->WasBetrayedPayoff}</td> 
+                <td> {$res->BothBetrayPayoff}, {$res->BothBetrayPayoff}</td> 
             </tr>
-        </table>
-
+        </table>";
+        ?>
         
       <p> Do you want to cooperate or to betray? Please make your next move. </p>
       <!-- Action Buttons -->
