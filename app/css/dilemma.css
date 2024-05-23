@@ -129,9 +129,9 @@ caption {
 /* score table */
 
 #for-score-table {
-    overflow:hidden;
+    overflow: hidden;
     overflow-y: scroll;
-    height: 20px;
+    height: 300px;
 }
 
 #score {

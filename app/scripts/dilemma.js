@@ -83,11 +83,28 @@ function update_round() {
         }
     )
 }
+
+// This function tries to get a message from the server and displays it, if there is one
+function display_message() {
+    $.post(
+        "php_functions/get_player_message.php",
+        {}, // send nothing to the script
+        function (message) { // on response from POST
+            if (!message) {
+                return;
+            }
+
+            alert(message); // TODO: THIS IS TEMPORARY!!
+        }
+    )
+}
+
 // This function calls all the update functions
 function update_all() {
     update_button_area();
     update_scoretable();
     update_round();
+    display_message();
 }
 
 // Update all website elements every second

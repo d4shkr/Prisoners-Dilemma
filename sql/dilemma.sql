@@ -14,6 +14,8 @@ CREATE TABLE Dilemma
     Score_Player2 INT, 
     Status_Player1 INT, -- Status: -1 if hasn't joined the game yet, 0 if didn't choose yet, 1 if Betrayed, 2 if Cooperated
     Status_Player2 INT,
+    Message_Player1 TEXT, -- Message to display to the player
+    Message_Player2 TEXT,
     Player1_UpToDate BOOLEAN, -- false if visuals need to be updated
     Player2_UpToDate BOOLEAN,
     CurrentRound INT,
