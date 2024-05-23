@@ -69,24 +69,34 @@ function update_button_area() {
     )
 }
 
+// This function updates the round number in the navigation bar
 function update_round() {
     $.post(
         "php_functions/get_round.php",
         {}, // send nothing to the script
         function (round) { // on response from POST
-            $("#round").html(`<h2> Round ${round} </h2>`);
+            if (round != 'finished') {
+                $("#round").html(`<h2> Round ${round} </h2>`);
+            } else {
+                $("#round").html(`<h2> Game Over </h2>`);
+            }
         }
     )
 }
 // This function calls all the update functions
 function update_all() {
-    update_scoretable();
     update_button_area();
+    update_scoretable();
     update_round();
 }
 
-update_all()
-setInterval(update_all, 1000) // update all website elements every second
+// Update all website elements every second
+function loop_update_all() {
+    update_all();
+    setTimeout(loop_update_all, 1000);
+}
+
+loop_update_all()
 
 // when the player clicks "Cooperate" button:
 $("#cooperate").on("click", () => {

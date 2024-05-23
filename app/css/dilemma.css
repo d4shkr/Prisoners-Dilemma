@@ -128,6 +128,12 @@ caption {
 
 /* score table */
 
+#for-score-table {
+    overflow:hidden;
+    overflow-y: scroll;
+    height: 20px;
+}
+
 #score {
     border-collapse: collapse;
     width: 80%;

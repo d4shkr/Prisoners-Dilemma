@@ -1,8 +1,8 @@
 <?php
 // Set payoffs in the current round based on choices made
 
-// get status values and total scores from the table 
-$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2 FROM Dilemma WHERE GameId = '{$game_id}'";
+// get total scores, status values, payoff histories and round number from the table 
+$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2, CurrentRound, MaxRounds, GamePhase FROM Dilemma WHERE GameId = '{$game_id}'";
 
 $res = mysqli_query($link, $sql_query)->fetch_object();
 
@@ -12,12 +12,23 @@ $score1 = $res->Score_Player1;
 $score2 = $res->Score_Player2;
 $payoff_history1 = json_decode($res->PayoffHistory_Player1);
 $payoff_history2 = json_decode($res->PayoffHistory_Player2);
+$curr_round = $res->CurrentRound;
+$max_round = $res->MaxRounds;
+
+if ($res->GamePhase == 'Finished') {
+    exit;
+}
 
 // Continue only if both players made their choice
 if ($status1 <= 0 || $status2 <= 0) {
     exit;
 }
 
+// Set the game status to "Finished" if this round is the last one
+if ($curr_round == $max_round) {
+    $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = '{$game_id}'";
+    mysqli_query($link, $sql_query);
+}
 
 // if both cooperate:
 if ($status1 == 2 && $status2 == 2) {
@@ -54,5 +65,6 @@ $payoff_history2 = json_encode($payoff_history2);
 // + increment current round number
 $sql_query = "UPDATE Dilemma SET CurrentRound = CurrentRound + 1, Status_Player1 = 0, Status_Player2 = 0, Score_Player1 = {$score1}, Score_Player2 = {$score2}, PayoffHistory_Player1 = '{$payoff_history1}', PayoffHistory_Player2 = '{$payoff_history2}' WHERE GameId = '{$game_id}'";
 mysqli_query($link, $sql_query);
+
 
 ?>
