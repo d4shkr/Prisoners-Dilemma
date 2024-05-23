@@ -10,7 +10,7 @@ $message = mysqli_query($link, $sql_query)->fetch_row()[0];
 echo $message;
 
 if (!empty($message)) { // if there was a message, remove it
-    $sql_query = "UPDATE Dilemma SET Message_Player{$player_num} = '' WHERE GameId = '{$game_id}'";
+    $sql_query = "UPDATE Dilemma SET Message_Player{$player_num} = '', UpToDate_Player{$player_num} = FALSE WHERE GameId = '{$game_id}'";
     mysqli_query($link, $sql_query);
 }
 ?>

@@ -18,8 +18,8 @@ CREATE TABLE Dilemma
     Status_Player2 INT,
     Message_Player1 TEXT, -- Message to display to the player
     Message_Player2 TEXT,
-    Player1_UpToDate BOOLEAN, -- false if visuals need to be updated
-    Player2_UpToDate BOOLEAN,
+    UpToDate_Player1 BOOLEAN, -- false if visuals need to be updated
+    UpToDate_Player2 BOOLEAN,
     MaxRounds INT, -- Total number of rounds in the game
     BothBetrayPayoff INT, -- Payoff if both players betray
     BothCooperatePayoff INT, -- Payoff if both players cooperate

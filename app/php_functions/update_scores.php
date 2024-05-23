@@ -81,7 +81,7 @@ $payoff_history2 = json_encode($payoff_history2);
 // Update values in Score table
 // + set statuses to 0 for the next round
 // + increment current round number
-$sql_query = "UPDATE Dilemma SET CurrentRound = CurrentRound + 1, Status_Player1 = 0, Status_Player2 = 0, Score_Player1 = {$score1}, Score_Player2 = {$score2}, PayoffHistory_Player1 = '{$payoff_history1}', PayoffHistory_Player2 = '{$payoff_history2}', Message_Player1 = '{$message1}', Message_Player2 = '{$message2}' WHERE GameId = '{$game_id}'";
+$sql_query = "UPDATE Dilemma SET CurrentRound = CurrentRound + 1, Status_Player1 = 0, Status_Player2 = 0, Score_Player1 = {$score1}, Score_Player2 = {$score2}, PayoffHistory_Player1 = '{$payoff_history1}', PayoffHistory_Player2 = '{$payoff_history2}', Message_Player1 = '{$message1}', Message_Player2 = '{$message2}', UpToDate_Player1 = FALSE, UpToDate_Player2 = FALSE  WHERE GameId = '{$game_id}'";
 mysqli_query($link, $sql_query);
 
 

@@ -23,7 +23,7 @@ function update_scoretable() {
             </tr>`
 
             // concatenate table rows for each round
-            for (var i = 0; i < your_payoff_history.length; ++i) {
+            for (var i = your_payoff_history.length - 1; i >= 0; --i) {
                 table_str += `<tr>\
                     <td> Round ${i + 1} </td> <td> ${your_payoff_history[i]} </td> <td> ${opponent_payoff_history[i]} </td>\
                 </tr>`
@@ -87,7 +87,7 @@ function update_round() {
 // This function tries to get a message from the server and displays it, if there is one
 function display_message() {
     $.post(
-        "php_functions/get_player_message.php",
+        "php_functions/recieve_player_message.php",
         {}, // send nothing to the script
         function (message) { // on response from POST
             if (!message) {
@@ -107,12 +107,21 @@ function update_all() {
     display_message();
 }
 
-// Update all website elements every second
+// Update all website elements every second if needed
 function loop_update_all() {
-    update_all();
+    $.post(
+        "php_functions/get_player_up_to_date.php",
+        {}, // send nothing to the script
+        function (message) { // on response from POST
+            if (message == '0') {
+                update_all(); // update if the visuals are outdated
+            }
+        }
+    )
     setTimeout(loop_update_all, 1000);
 }
 
+update_all()
 loop_update_all()
 
 // when the player clicks "Cooperate" button:
