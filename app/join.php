@@ -18,7 +18,7 @@ if (isset($_GET['GameId'])) {
                 $sql_query = "DELETE FROM Players WHERE PlayerId = '{$player_id}'";
                 mysqli_query($link, $sql_query);
 
-                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished' WHERE GameId = '{$row[0]}'";
+                $sql_query = "UPDATE Dilemma SET GamePhase = 'Finished', UpToDate_Player1 = FALSE, UpToDate_Player2 = FALSE, Message_Player1 = 'Your opponent left the game...', Message_Player2 = 'Your opponent left the game...' WHERE GameId = '{$row[0]}'";
                 mysqli_query($link, $sql_query);
 
             // if GameId is the same, send player to the game page

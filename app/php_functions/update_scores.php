@@ -34,11 +34,16 @@ if ($curr_round == $max_round) {
     mysqli_query($link, $sql_query);
 }
 
+$both_cooperate_abs = abs($both_cooperate);
+$both_betray_abs = abs($both_betray);
+$has_betrayed_abs = abs($has_betrayed);
+$was_betrayed_abs = abs($was_betrayed);
+
 // Constructing the messages
-$both_cooperated_message = "You both cooperated! " . ($both_cooperate == 0 ? "The score doesn't change." : "You " . ($both_cooperate > 0 ? "gain" : "lose") . " {$both_cooperate} point" . (abs($both_cooperate) > 1 ? "s each." : " each."));
-$both_betrayed_message = "You betrayed each other! " . ($both_betray == 0 ? "The score doesn't change." : "You both " . ($both_betray > 0 ? "gain" : "lose") . " {$both_betray} point" . (abs($both_betray) > 1 ? "s." : "."));
-$has_betrayed_message = "You betrayed your opponent!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score doesn't change." : ($has_betrayed == 0 ? "" : " You " . ($has_betrayed > 0 ? "gain" : "lose") . " {$has_betrayed} point" . (abs($has_betrayed) > 1 ? "s." : ".")) . ($was_betrayed == 0 ? "" : " They " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed} point" . (abs($was_betrayed) > 1 ? "s." : ".")));
-$was_betrayed_message = "You were betrayed!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score doesn't change." : ($was_betrayed == 0 ? "" : " You " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed} point" . (abs($was_betrayed) > 1 ? "s." : ".")) . ($has_betrayed == 0 ? "" : " Your opponent " . ($has_betrayed > 0 ? "gains" : "loses") . " {$has_betrayed} point" . (abs($has_betrayed) > 1 ? "s." : ".")));
+$both_cooperated_message = "You both cooperated! " . ($both_cooperate == 0 ? "The score does not change." : "You " . ($both_cooperate > 0 ? "gain" : "lose") . " {$both_cooperate_abs} point" . ($both_cooperate_abs > 1 ? "s each." : " each."));
+$both_betrayed_message = "You betrayed each other! " . ($both_betray == 0 ? "The score does not change." : "You both " . ($both_betray > 0 ? "gain" : "lose") . " {$both_betray_abs} point" . ($both_betray_abs > 1 ? "s." : "."));
+$has_betrayed_message = "You betrayed your opponent!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score does not change." : ($has_betrayed == 0 ? "" : " You " . ($has_betrayed > 0 ? "gain" : "lose") . " {$has_betrayed_abs} point" . ($has_betrayed_abs > 1 ? "s." : ".")) . ($was_betrayed == 0 ? "" : " They " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed_abs} point" . ($was_betrayed_abs > 1 ? "s." : ".")));
+$was_betrayed_message = "You were betrayed!" . ($was_betrayed == 0 && $has_betrayed == 0 ? " The score does not change." : ($was_betrayed == 0 ? "" : " You " . ($was_betrayed > 0 ? "gain" : "lose") . " {$was_betrayed_abs} point" . ($was_betrayed_abs > 1 ? "s." : ".")) . ($has_betrayed == 0 ? "" : " Your opponent " . ($has_betrayed > 0 ? "gains" : "loses") . " {$has_betrayed_abs} point" . ($has_betrayed_abs > 1 ? "s." : ".")));
 
 // if both cooperate:
 if ($status1 == 2 && $status2 == 2) {

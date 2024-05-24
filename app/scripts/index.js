@@ -2,7 +2,15 @@
 $("#start_button").on("click", () => {
     $.post(
         "php_functions/create_game.php",
-        {}, // send nothing to the script
+        // Game settings
+        {
+            "number_of_rounds": $("#rounds_range").val(), 
+            "hide_rounds_num" : $("#hide_number_of_rounds_checkbox").prop("checked"),
+            "both_cooperate_payoff" : $("#both_cooperate").val(), 
+            "both_betray_payoff" : $("#both_betray").val(), 
+            "was_betrayed_payoff" : $("#was_betrayed").val(), 
+            "has_betrayed_payoff" : $("#has_betrayed").val()
+        }, // send data to the script
         function (uuid) { // on response from POST
 
             // display link to join.php/?GameId=[uuid]
@@ -16,6 +24,10 @@ $("#start_button").on("click", () => {
             $("#for-join-link").removeClass("hidden");
         }
     );
+})
+
+$("#rounds_range").on("input", () => {
+    $("#slider_output").text($("#rounds_range").val()) // gets the oninput value
 })
 
 document.getElementById("beb").addEventListener("click", () => {
