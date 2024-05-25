@@ -151,7 +151,36 @@ caption {
 #score tr {background-color: #ece0e8;}
 #score tr:nth-child(even){background-color: #f2f2f2;}
 
+.light-up {
+    animation-name: light-up-animation;
+    animation-duration: .5s;
+}
+
+@keyframes light-up-animation {
+    0% {
+        filter: brightness(100%);
+        filter: contrast(100%);
+    }
+
+    50% {
+        filter: brightness(120%);
+        filter: contrast(120%);
+    }
+
+    100% {
+        filter: brightness(100%);
+        filter: contrast(100%);
+    }
+}
+
 /* buttons */
+
+#for-buttons-and-waiting-message {
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 #action_buttons{
     text-align: center;
@@ -198,6 +227,7 @@ a.Hidden {
 
 .collapsed {
     visibility: collapse;
+    display: none;
 }
 
 .hidden {
@@ -206,34 +236,65 @@ a.Hidden {
 
 .for-waiting-message {
     color:#53687E;
-    margin-top: 2px;
-}
-
-/* old */
-
-div.top-bar {
+    font-weight: bold;
     text-align: center;
-    margin-top: 0;
-}
-
-div.topbar-logo {
-    max-width: 800px;
-    margin: auto;
-    background-color: #53687E;
-}
-
-ul.topbar-menu-container {
-    float: right;
-}
-
-div.main-page {
-    background-color: #F5DDDD;
-    width: 100%;
-    height: 100%;
+    font-size: large;
 }
 
 div.content {
     text-align: center;
     width: 80%;
     height: 80%;
+}
+
+/* log footer */
+
+.log-footer {
+    color:#53687E;
+    font-weight: bold;
+    font-size: large;
+    text-align: center;
+    height: 50px;
+    animation-name: appear-disappear-animation;
+    animation-duration: 10s;
+    animation-fill-mode: both;
+}
+
+@keyframes appear-disappear-animation {
+    0% {
+        transform: scale(0%);
+        opacity: 0;
+        height: 0;
+        font-size: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    6% {
+        height: 52.5px;
+        font-size: large;
+        transform: scale(105%);
+        filter: brightness(100%);
+    }
+
+    7% {
+        filter: brightness(110%);
+        height: 50px;
+        transform: scale(100%);
+    }
+
+    10% {
+        filter: brightness(100%);
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
 }

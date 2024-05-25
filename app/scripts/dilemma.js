@@ -50,13 +50,13 @@ function update_button_area() {
                 // if the player chose to betray: hide the action buttons, update and display the waiting message
                 case 'betrayed':
                     $("#action_buttons").addClass("collapsed");
-                    $("#waiting").html("You chose to betray. Waiting for other player...");
+                    $("#waiting").html("You chose to <span style='color: #fb89b7'>betray</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
                     break;
                 // if the player chose to cooperate: hide the action buttons, update and display the waiting message
                 case 'cooperated':
                     $("#action_buttons").addClass("collapsed");
-                    $("#waiting").html("You chose to cooperate. Waiting for other player...");
+                    $("#waiting").html("You chose to <span style='color: #7dca6e'>cooperate</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
                     break;
                 // if the game is finished: hide the action buttons and notify the player
@@ -90,11 +90,12 @@ function display_message() {
         "php_functions/recieve_player_message.php",
         {}, // send nothing to the script
         function (message) { // on response from POST
-            if (!message) {
+            if (!message) { // format: MessageType|Message
                 return;
             }
 
-            alert(message); // TODO: THIS IS TEMPORARY!!
+            $("#log-container").prepend(`<footer class="log-footer"> <p>${message}</p> </footer>`);
+            $("#score tr:nth-child(3)").addClass("light-up");
         }
     )
 }

@@ -3,14 +3,30 @@ include_once('db.php');
 
 if (!isset($_COOKIE['PlayerId'])) {
 
-  echo "<div class='error'> Player Id is incorrect </div>";
+  echo "<div class='error'> Player Id is missing </div>";
   exit;
 }
 
 session_start();
 $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the player decides to clear cookies during the game
 
- // TODO: check if PlayerId and Curr_GameId are valid
+$player_id = $_SESSION['PlayerId'];
+
+// Check if PlayerId and Curr_GameId are valid
+$sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = '{$player_id}'";
+
+if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
+  $res = $res[0];
+  $sql_query = "SELECT GameId FROM Dilemma WHERE GameId = '{$res}'";
+
+  if (!mysqli_query($link, $sql_query)->fetch_row()) { // if GameId in not in Dilemma table
+    echo "<div class='error'> Game Id is incorrect </div>";
+    exit;
+  }
+} else {
+  echo "<div class='error'> Player Id doesn't exist </div>";
+  exit;
+}
 
 ?>
 
@@ -83,6 +99,8 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
         ?>
         
       <p> Do you want to cooperate or to betray? Please make your next move. </p>
+
+      <div id='for-buttons-and-waiting-message'>
       <!-- Action Buttons -->
       <div id='action_buttons'>
         <div class='button' id='cooperate'>
@@ -97,7 +115,8 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
       <div class='collapsed for-waiting-message' id='waiting'>
         Waiting for other player to choose...
       </div>
-
+      </div>
+    
       </article>
 
       <!-- Score Table -->
@@ -121,9 +140,8 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
       </div>
   </aside>
 </main>
-<footer>
-      <p>©Copyright 2024 by dasha. All rights reversed.</p>
-</footer>
+<div id='log-container'>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="scripts/dilemma.js"></script>
 </body>
