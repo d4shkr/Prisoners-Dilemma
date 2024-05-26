@@ -112,10 +112,15 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
       </div>
 
       <!-- Waiting message -->
-      <div class='collapsed for-waiting-message' id='waiting'>
-        Waiting for other player to choose...
+      <div class='for-loader-and-message'>
+        <div class='for-waiting-message' id='waiting'>
+          Waiting for other player to choose... 
+        </div>
+        <div class='loader-container' id='loader'>
+            <div class='loader-2'></div>
+        </div>
       </div>
-      </div>
+</div>
     
       </article>
 

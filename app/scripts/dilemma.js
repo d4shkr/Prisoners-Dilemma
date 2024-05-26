@@ -42,28 +42,32 @@ function update_button_area() {
         {}, // send nothing to the script
         function (choice) { // on response from POST
             switch (choice) {
-                // if the player didn't choose yet: display the action buttons, hide the waiting message
+                // if the player didn't choose yet: display the action buttons, hide the waiting message and the loader
                 case 'unknown':
                     $("#action_buttons").removeClass("collapsed");
                     $("#waiting").addClass("collapsed");
+                    $("#loader").addClass("collapsed");
                     break;
-                // if the player chose to betray: hide the action buttons, update and display the waiting message
+                // if the player chose to betray: hide the action buttons, update and display the waiting message and the loader
                 case 'betrayed':
                     $("#action_buttons").addClass("collapsed");
                     $("#waiting").html("You chose to <span style='color: #fb89b7'>betray</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
+                    $("#loader").removeClass("collapsed");
                     break;
-                // if the player chose to cooperate: hide the action buttons, update and display the waiting message
+                // if the player chose to cooperate: hide the action buttons, update and display the waiting message and the loader
                 case 'cooperated':
                     $("#action_buttons").addClass("collapsed");
                     $("#waiting").html("You chose to <span style='color: #7dca6e'>cooperate</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
+                    $("#loader").removeClass("collapsed");
                     break;
                 // if the game is finished: hide the action buttons and notify the player
                 case 'finished':
                     $("#action_buttons").addClass("collapsed");
                     $("#waiting").html("Game Over... bye-bye!");
                     $("#waiting").removeClass("collapsed");
+                    $("#loader").addClass("collapsed");
             }
         }
     )
