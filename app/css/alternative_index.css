@@ -1,83 +1,26 @@
 body {
+    height: 100%;
     font-family: Arial, Helvetica, sans-serif;
-}
 
-main {
-    background-color: #F5DDDD;
 }
-
-/* Header layout */
 
 header {
     font-size: 150%;
     margin: 0;
     display: block;
     text-align: center;
-    background-color: #53687E;
-    color:#FFC53A;
-  }
-
-  nav, article, aside, footer {
-    background-color: #F5DDDD;
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 1%;
-  }
-
-  nav {
-    height: 50px;
-    background-color: #53687E;
-    display: flex;
-    margin-bottom: 10px;
+    background-color: black;
+    color:white;
+    filter: invert(100%);
+    mix-blend-mode: difference;
   }
   
-  nav ul {
-    padding: 0;
-    list-style-type:none;
-    flex: 2;
-    display: flex;
-  }
   
-  nav li {
-    display: inline;
-    text-align: right;
-    flex: 1;
-  }
-  
-  nav a {
-    display: inline-block;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: #FFC53A;
-  }
-
-  #for-header {
-    vertical-align: middle;
-    display: flex;
-    flex: 2;
-}
-
-#header {
-    display: table;
-    text-transform: uppercase;
-    color: #FFC53A;
-    border: 1px solid;
-    border-radius: 0 10px;
-}
-
-#header h2 {
-    text-align: left;
-    display: table-cell;
-    vertical-align: middle;
-    padding: 10px 20px;
-}
   .main-heading{
     max-width: 800px;
     margin: auto;
   }
 
-
-/* Buttons */
 
 div.for-button{
     text-align: center;
@@ -85,8 +28,8 @@ div.for-button{
 
 div.button {
     display: inline-block;
-    color:white;
-    background-color: #EDADC7;
+    color:black;
+    background-color: whitesmoke;
     border: 1px solid transparent;
     border-radius: 7px;
     cursor: pointer;
@@ -94,20 +37,18 @@ div.button {
     width: 250px;
     text-align: center;
     font-size: 130%;
-    font-weight: bold;
 }
 
 #start_button {
-    box-shadow: 0 0 5px -1px #912F56;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
 }
 #beb {
     margin: 20px auto;
-    box-shadow: 0 0 5px -1px #912F56;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
 }
 
 #invite {
     background-color: rgba(240, 248, 255, 0);
-    color: #53687E;
 }
  
 .collapsed {
@@ -120,7 +61,6 @@ div.button {
 
 .for-join-link {
     text-align: center;
-    width:50%;
     background-color:rgba(250, 250, 244, 0.781);
 }
 
@@ -154,20 +94,19 @@ div.button {
     appearance: none;
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
-    background: #912F56; /* Pink background */
+    background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
   
   .slider::-moz-range-thumb {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */
-    background: #912F56; /* Pink background */
+    background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
   }
 
   .settings {
-    color: #53687E;
-    font-weight: bold;
+    color: whitesmoke;
     margin-top: 8px;
   }
 

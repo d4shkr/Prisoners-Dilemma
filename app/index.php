@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="css/index.css">
     
 </head>
-<body style='background-image:URL(
-        https://sun9-39.userapi.com/impg/FfOklB7i7CIUgBhuOhR2go0d31ztGRTNjASTgQ/xWWTfXqB7Z4.jpg?size=1024x683&quality=96&sign=08e4650c29291d9150aff267e6cc4aca&c_uniq_tag=JyPXdr7Bzq2oSWgQUD2iY31QMpxtwiuKUP8EhYEQ1xk&type=album>);
-        background-repeat: no-repeat; background-size: cover;'>
+<body>
+    <!-- Navigation bar -->
+    <nav>
+    <div id='for-header'> <div id='header'> <h2> Prisoner's Dilemma </h2> </div> </div>
+      <ul>
+        <li><a id='about'> About </a> </li>
+        <li><a id='home-link'> Home </a> </li>
+        <li><a id='edit-login-link'> Player </a> </li>
+      </ul>
+    </nav>
+
+    <!--
     <header>
 
     <div class="main-heading">
@@ -20,6 +29,8 @@
         <p>This is a round-based multiplayer Prisoner's Dilemma Game</p>
     </div>  
     </header>
+    -->
+    <main>
     <div class='for-button'>
         <div class='button' id='start_button'> <p> Start Game </p> </div>
     </div>
@@ -68,6 +79,7 @@
             <input type="number" id="was_betrayed" value="0">
         </div>
     </div>
+</main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="scripts/index.js"></script>
