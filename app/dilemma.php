@@ -12,8 +12,8 @@ $_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the 
 
 $player_id = $_SESSION['PlayerId'];
 
-// Check if PlayerId and Curr_GameId are valid
-$sql_query = "SELECT Curr_GameId FROM Players WHERE PlayerId = '{$player_id}'";
+// Check if PlayerId and GameId are valid
+$sql_query = "SELECT GameId FROM Players WHERE PlayerId = '{$player_id}'";
 
 if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
   $res = $res[0];
@@ -69,10 +69,10 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
         <?php
           // get Game Id from Player ID
           $player_id = $_SESSION['PlayerId'];
-          $sql_query = "SELECT Curr_GameId, Curr_PlayerNum FROM Players WHERE PlayerId = '{$player_id}'";
+          $sql_query = "SELECT GameId FROM Players WHERE PlayerId = '{$player_id}'";
           $res = mysqli_query($link, $sql_query)->fetch_object();
 
-          $game_id = $res->Curr_GameId;
+          $game_id = $res->GameId;
 
           // Get payoffs
           $sql_query = "SELECT BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Dilemma WHERE GameId = '{$game_id}'";

@@ -95,13 +95,17 @@ div.button {
     text-align: center;
     font-size: 130%;
     font-weight: bold;
+    margin-top: 15px;
 }
 
 #start_button {
     box-shadow: 0 0 5px -1px #912F56;
 }
 #beb {
-    margin: 20px auto;
+    box-shadow: 0 0 5px -1px #912F56;
+}
+
+#start_tournament {
     box-shadow: 0 0 5px -1px #912F56;
 }
 

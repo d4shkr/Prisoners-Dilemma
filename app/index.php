@@ -32,7 +32,11 @@
     -->
     <main>
     <div class='for-button'>
-        <div class='button' id='start_button'> <p> Start Game </p> </div>
+        <div class='button' id='start_button'> <p> Create Game </p> </div>
+    </div>
+
+    <div class='for-button'>
+        <div class='button' id='start_tournament'> <p> Create Tournament </p> </div>
     </div>
 
     <div class='for-button'> 

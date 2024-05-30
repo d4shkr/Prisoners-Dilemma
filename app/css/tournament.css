@@ -43,13 +43,13 @@ nav, article, aside, footer {
     color: #FFC53A;
   }
 
-#for-round {
+#for-gamenum {
     vertical-align: middle;
     display: flex;
     flex: 2;
 }
 
-#round {
+#gamenum {
     display: table;
     text-transform: uppercase;
     color: #FFC53A;
@@ -57,7 +57,7 @@ nav, article, aside, footer {
     border-radius: 0 10px;
 }
 
-#round h2 {
+#gamenum h2 {
     text-align: left;
     display: table-cell;
     vertical-align: middle;
@@ -88,6 +88,48 @@ main {
     margin-top: 10px;
   }
 
+
+  
+  .container {
+    text-align: center;
+    
+  }
+
+/* Leaderboard */
+
+#leaderboard {
+  align-items: center;
+}
+
+.row {
+  align-items: center;
+  border: 1px solid;
+  margin-bottom: 10px;
+  font-size: x-large;
+  text-align: center;
+  font-weight: bold;
+}
+
+.place {
+  display: inline-block;
+  width: 20%;
+}
+
+.name {
+  display: inline-block;
+  width: 25%;
+}
+
+.score {
+  display: inline-block;
+  width: 25%;
+}
+
+.gamenum {
+  display: inline-block;
+  width: 20%;
+}
+
 /* Payoff Matrix */
 td, th {
     border: 2px solid #ddd;
@@ -108,6 +150,10 @@ caption {
     text-transform: uppercase;
 }
 
+#for-score-table {
+    text-align: center;
+    margin-top: auto;
+}
 #payoff {
     border-collapse: collapse;
     width: 20%;
@@ -128,8 +174,6 @@ caption {
     overflow: hidden;
     overflow-y: scroll;
     height: 300px;
-    text-align: center;
-    margin-top: auto;
 }
 
 #score {
@@ -203,23 +247,6 @@ div.error {
     text-align: center;
 }
 
-#cooperate {
-    background-color:#7dca6e;
-}
-#cooperate:active {
-    background-color: #5eaa4f;
-}
-
-#betray {
-    background-color: #fb89b7;
-}
-#betray:active {
-    background-color:#d86a98;
-}
-
-a.Hidden {
-    text-decoration: none;
-}
 
 /* waiting message */
 
@@ -307,55 +334,3 @@ div.content {
     }
   }
   
-
-/* log footer */
-
-.log-footer {
-    color:#53687E;
-    font-weight: bold;
-    font-size: large;
-    text-align: center;
-    height: 50px;
-    animation-name: appear-disappear-animation;
-    animation-duration: 10s;
-    animation-fill-mode: both;
-}
-
-@keyframes appear-disappear-animation {
-    0% {
-        transform: scale(0%);
-        opacity: 0;
-        height: 0;
-        font-size: 0;
-    }
-
-    5% {
-        opacity: 1;
-    }
-
-    6% {
-        height: 52.5px;
-        font-size: large;
-        transform: scale(105%);
-        filter: brightness(100%);
-    }
-
-    7% {
-        filter: brightness(110%);
-        height: 50px;
-        transform: scale(100%);
-    }
-
-    10% {
-        filter: brightness(100%);
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-
-}

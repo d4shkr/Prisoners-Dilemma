@@ -48,8 +48,9 @@ if (isset($_GET['TournamentId'])) {
                 }
 
             } else {
-                // TODO: send player to tournament page
-
+                
+                // Send player to the tournament page
+                header("Location: tournament.php");
                 exit;
             }
         }
@@ -88,7 +89,8 @@ if (isset($_GET['TournamentId'])) {
 
             setcookie('TournamentMemberId', $uuid, time() + 86400); // expires in a day
 
-            // TODO: send player to the tournament page
+            // Send player to the tournament page
+            header("Location: tournament.php");
 
         } else {
             echo "<div class='error'> Tournament is full. </div>";
