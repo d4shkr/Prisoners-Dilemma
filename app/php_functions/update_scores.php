@@ -2,7 +2,7 @@
 // Set payoffs in the current round based on choices made
 
 // get total scores, status values, payoff histories and round number from the table 
-$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2, CurrentRound, MaxRounds, GamePhase, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Dilemma WHERE GameId = '{$game_id}'";
+$sql_query = "SELECT Score_Player1, Score_Player2, Status_Player1, Status_Player2, PayoffHistory_Player1, PayoffHistory_Player2, CurrentRound, MaxRounds, GamePhase, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff, TournamentMemberId1, TournamentMemberId2 FROM Dilemma WHERE GameId = '{$game_id}'";
 
 $res = mysqli_query($link, $sql_query)->fetch_object();
 
@@ -18,6 +18,8 @@ $both_betray = $res->BothBetrayPayoff;
 $both_cooperate = $res->BothCooperatePayoff;
 $was_betrayed = $res->WasBetrayedPayoff;
 $has_betrayed = $res->HasBetrayedPayoff;
+$member_id1 = $res->TournamentMemberId1;
+$member_id2 = $res->TournamentMemberId2;
 
 if ($res->GamePhase == 'Finished') {
     exit;
@@ -82,6 +84,11 @@ $payoff_history2[] = $payoff2;
 // Prepare Payoff history tables for insertion
 $payoff_history1 = json_encode($payoff_history1);
 $payoff_history2 = json_encode($payoff_history2);
+
+if ($curr_round == $max_round && isset($member_id1) && isset($member_id2)) {
+    $sql_query = "UPDATE TournamentMembers SET IsAvailable = TRUE, NumberOfPlayedGames = NumberOfPlayedGames + 1, Score = Score + CASE TournamentMemberId WHEN '{$member_id1}' THEN {$score1} WHEN '{$member_id2}' THEN {$score2} ELSE 0 END WHERE TournamentMemberId IN ('{$member_id1}', '{$member_id2}')";
+    mysqli_query($link, $sql_query);
+}
 
 // Update values in Score table
 // + set statuses to 0 for the next round

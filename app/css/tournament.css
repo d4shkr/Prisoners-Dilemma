@@ -121,6 +121,8 @@ main {
     color: #53687E;
   }
 
+
+
 /* Leaderboard */
 
 #leaderboard {
@@ -267,15 +269,22 @@ caption {
 
 /* buttons */
 
-#for-buttons-and-waiting-message {
-    min-height: 60px;
+#for-button-and-message {
+    min-height: 80px;
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#action_buttons{
+
+#join {
     text-align: center;
+    background-color:#7dca6e;
+}
+
+#join:active {
+  background-color: #5eaa4f;
 }
 
 div.button {

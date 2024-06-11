@@ -1,14 +1,23 @@
 <?php
 include_once('db.php');
 
-if (!isset($_COOKIE['PlayerId'])) {
-
-  echo "<div class='error'> Player Id is missing </div>";
-  exit;
+session_start();
+if (isset($_COOKIE['TournamentMemberId'])) {
+  $member_id = $_COOKIE['TournamentMemberId'];
+  $sql_query = "SELECT Curr_PlayerId FROM TournamentMembers WHERE TournamentMemberId = '{$member_id}'";
+  if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
+    $_SESSION['PlayerId'] = $res[0];
+  }
 }
 
-session_start();
-$_SESSION['PlayerId'] = $_COOKIE['PlayerId']; // if something goes wrong or the player decides to clear cookies during the game
+if (!isset($_SESSION['PlayerId'])) {
+  if (isset($_COOKIE['PlayerId'])) {
+    $_SESSION['PlayerId'] = $_COOKIE['PlayerId'];
+  } else {
+    echo "<div class='error'> Player Id is missing </div>";
+    exit;
+  }
+}
 
 $player_id = $_SESSION['PlayerId'];
 

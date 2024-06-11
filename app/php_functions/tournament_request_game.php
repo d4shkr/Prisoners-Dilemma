@@ -25,11 +25,12 @@ $tournament_id = $res->TournamentId;
 $is_available = $res->IsAvailable;
 
 // Get tournament phase, number of members, number of games per member and tournament settings
-$sql_query = "SELECT TournamentPhase, NumberOfMembers, NumberOfGamesPerMember, MaxRounds, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff, MaxRoundsKnown FROM Tournaments WHERE TournamentId = '{$tournament_id}'";
+$sql_query = "SELECT TournamentPhase, NumberOfMembers, TournamentMemberIds, NumberOfGamesPerMember, MaxRounds, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff, MaxRoundsKnown FROM Tournaments WHERE TournamentId = '{$tournament_id}'";
 $tournament_res = mysqli_query($link, $sql_query)->fetch_object();
 
 $phase = $tournament_res->TournamentPhase;
 $games_per_member = $tournament_res->NumberOfGamesPerMember;
+$number_of_members = $tournament_res->NumberOfMembers;
 
 // 1. all members have played all their games: 'complete'
 
@@ -52,17 +53,24 @@ if (!$is_available) {
     exit;
 }
 
+if ($number_of_members > count(json_decode($tournament_res->TournamentMemberIds))) {
+    echo 'joining';
+    exit;
+}
+
 // 4. if user is not in a game or is in a finished game:
     // a) if there is a fitting (have not played recently) free member, create game: 'playing'
     // b) else: 'waiting'
 
-$opponents_tuple_string = substr($opponents, 1, strlen($opponents) - 2);
-
+$opponents_tuple_string = substr($opponents, 1, strlen($opponents) - 2);    
 // Get tournament member id and PreviousOpponentIds of all probably available opponents
-$sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId NOT IN ({$opponents_tuple_string})";
-
+if (empty($opponents_tuple_string)) {
+    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId != '{$member_id}'";
+} else {
+    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId NOT IN ('{$member_id}', {$opponents_tuple_string})";
+}
 // we need to check whether we are NOT in our probable opponent's 'black list', so we have to run through all probably available opponents until we find 'the one'
-while ($res = mysqli($link, $sql_query)->fetch_object()) {
+while ($res = mysqli_query($link, $sql_query)->fetch_object()) {
     $opponent_id = $res->TournamentMemberId;
     $black_list = json_decode($res->PreviousOpponentIds);
 
@@ -87,7 +95,7 @@ while ($res = mysqli($link, $sql_query)->fetch_object()) {
         // Game: GameId, CurrentRound, GamePhase,
         // Players: PayoffHistory_Player1, PayoffHistory_Player2, Score_Player1, Score_Player2, Status_Player1, Status_Player2, Message_Player1, Message_Player2, UpToDate_Player1, UpToDate_Player2, TournamentMemberId1, TournamentMemberId2
         // Settings: MaxRounds, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff, MaxRoundsKnown 
-        $sql_query = "INSERT INTO Dilemma VALUES ('{$game_uuid}', 1, 'Running', '[]', '[]', 0, 0, 0, 0, '', '', FALSE, FALSE, '{$member_id}', '{$opponent_id}', {$max_rounds}, {$both_betray}, {$both_cooperate}, {$was_betrayed}, {$has_betrayed}, {$max_round_known})";
+        $sql_query = "INSERT INTO Dilemma VALUES ('{$game_uuid}', 1, 'Running', '[]', '[]', 0, 0, 0, 0, '', '', FALSE, FALSE, '{$member_id}', '{$opponent_id}', {$max_rounds}, {$both_betray}, {$both_cooperate}, {$was_betrayed}, {$has_betrayed}, {$max_rounds_known})";
         mysqli_query($link, $sql_query);
 
         // Create two rows in the "Players" table
@@ -97,7 +105,6 @@ while ($res = mysqli($link, $sql_query)->fetch_object()) {
         // Now we need to update the "TournamentMembers" table.
         
         // we need to add new opponents to each other's 'black list'. We'll add a new opponent and cut the list if it's too long
-        $number_of_members = $tournament_res->NumberOfMembers;
         if ($number_of_members >= 3) {
             $opponents = json_decode($opponents);
             $opponents[] = $opponent_id; // to the end of the list (FIFO)

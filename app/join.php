@@ -13,11 +13,12 @@ if (isset($_GET['TournamentId'])) {
 
         // If TournamentMemberId exists:
         if ($row = mysqli_query($link, $sql_query)->fetch_row()) {
+            $curr_tournament_id = $row[0];
 
             // If user is trying to join a different tournament, remove them from the previous tournament
-            if ($row[0] != $tournament_id) {
+            if ($curr_tournament_id != $tournament_id) {
                 
-                $sql_query = "SELECT TournamentMemberIds, TournamentPhase FROM Tournaments WHERE TournamentId = '{$row[0]}'";
+                $sql_query = "SELECT TournamentMemberIds, TournamentPhase FROM Tournaments WHERE TournamentId = '{$curr_tournament_id}'";
 
                 // Remove member from the tournament:
                 if ($res = mysqli_query($link, $sql_query)->fetch_object()) {
@@ -29,13 +30,14 @@ if (isset($_GET['TournamentId'])) {
                         // If we found this member in the list, remove them
                         if ($key = array_search($tournament_member_id, $tournament_member_ids_array)) {
                             unset($tournament_member_ids_array[$key]);
+                            $tournament_member_ids_array = array_values($tournament_member_ids_array);
                             $tournament_member_ids_array = json_encode($tournament_member_ids_array);
 
                             // If game is running, we need to decrement the total number of tournament members, as users can't join the tournament anymore
-                            if ($res->TournamentMemberIds == 'Waiting') {
-                                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}' WHERE TournamentId = '{$row[0]}'";
+                            if ($res->TournamentPhase == 'Waiting') {
+                                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}' WHERE TournamentId = '{$curr_tournament_id}'";
                             } else {
-                                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}', NumberOfMembers = NumberOfMembers - 1 WHERE TournamentId = '{$row[0]}'";
+                                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}', NumberOfMembers = NumberOfMembers - 1 WHERE TournamentId = '{$curr_tournament_id}'";
                             } 
 
                             mysqli_query($link, $sql_query);
@@ -78,7 +80,7 @@ if (isset($_GET['TournamentId'])) {
             // Default name, e. g. 'Player 3'
             $member_name = "Player " . ($current_member_count + 1);
 
-            $sql_query = "INSERT INTO TournamentMembers VALUES ('{$uuid}', '{$tournament_id}', NULL, '{$member_name}', 0, 0, '[]')";
+            $sql_query = "INSERT INTO TournamentMembers VALUES ('{$uuid}', '{$tournament_id}', NULL, '{$member_name}', 0, 0, '[]', TRUE)";
             mysqli_query($link, $sql_query);
 
             // Update list of tournament members
@@ -91,6 +93,7 @@ if (isset($_GET['TournamentId'])) {
 
             // Send player to the tournament page
             header("Location: tournament.php");
+            exit;
 
         } else {
             echo "<div class='error'> Tournament is full. </div>";
@@ -105,6 +108,51 @@ if (isset($_GET['TournamentId'])) {
 } else if (isset($_GET['GameId'])) {
     
     $game_id = $_GET['GameId'];
+
+    // If user is a member of some tournament
+    if (isset($_COOKIE['TournamentMemberId'])) {
+        $tournament_member_id = $_COOKIE['TournamentMemberId'];
+        $sql_query = "SELECT TournamentId FROM TournamentMembers WHERE TournamentMemberId = '{$tournament_member_id}'";
+
+        // If TournamentMemberId exists:
+        if ($row = mysqli_query($link, $sql_query)->fetch_row()) {
+            $curr_tournament_id = $row[0];
+            
+            $sql_query = "SELECT TournamentMemberIds, TournamentPhase FROM Tournaments WHERE TournamentId = '{$curr_tournament_id}'";
+
+            // Remove member from the tournament:
+            if ($res = mysqli_query($link, $sql_query)->fetch_object()) {
+                $tournament_member_ids_array = json_decode($res->TournamentMemberIds);
+
+                // If Tournament is complete, we don't need to remove the member from the leaderboard
+                if ($res->TournamentMemberIds != 'Complete') {
+
+                    // If we found this member in the list, remove them
+                    if ($key = array_search($tournament_member_id, $tournament_member_ids_array)) {
+                        unset($tournament_member_ids_array[$key]);
+                        $tournament_member_ids_array = array_values($tournament_member_ids_array);
+                        $tournament_member_ids_array = json_encode($tournament_member_ids_array);
+
+                        // If game is running, we need to decrement the total number of tournament members, as users can't join the tournament anymore
+                        if ($res->TournamentPhase == 'Waiting') {
+                            $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}' WHERE TournamentId = '{$curr_tournament_id}'";
+                        } else {
+                            $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}', NumberOfMembers = NumberOfMembers - 1 WHERE TournamentId = '{$curr_tournament_id}'";
+                        } 
+
+                        mysqli_query($link, $sql_query);
+                    }
+
+                    // Remove this member from the table, as they won't be needed for the leaderboard
+                    $sql_query = "DELETE FROM TournamentMembers WHERE TournamentMemberId = '{$tournament_member_id}'";
+                    mysqli_query($link, $sql_query);
+                }
+            }
+        }
+        // remove tournament cookie
+        unset($_COOKIE['TournamentMemberId']); 
+        setcookie('TournamentMemberId', '', -1); 
+    }
 
     if (isset($_COOKIE['PlayerId'])) {
 
@@ -161,6 +209,7 @@ if (isset($_GET['TournamentId'])) {
 
             setcookie('PlayerId', $uuid, time() + 86400); // expires in a day
             header("Location: dilemma.php"); // send player to the game page
+            exit;
 
         } else {
             echo "<div class='error'> Game is full. </div>";

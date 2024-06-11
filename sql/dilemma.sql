@@ -25,7 +25,7 @@ CREATE TABLE Dilemma
     UpToDate_Player1 BOOLEAN, -- false if visuals need to be updated
     UpToDate_Player2 BOOLEAN,
     TournamentMemberId1 VARCHAR(36), -- Tournament member ID, associated with this game. NULL if player1 is not a tournament member.
-    TournamentMemberId2 VARCHAR(36) -- Tournament member ID, associated with this game. NULL if player2 is not a tournament member.
+    TournamentMemberId2 VARCHAR(36), -- Tournament member ID, associated with this game. NULL if player2 is not a tournament member.
     -- Settings:
     MaxRounds INT, -- Total number of rounds in the game
     BothBetrayPayoff INT, -- Payoff if both players betray
