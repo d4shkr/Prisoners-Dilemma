@@ -43,9 +43,9 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
     <nav>
     <div id='for-round'> <div id='round'> <h2> Round 1 </h2> </div> </div>
       <ul>
-        <li><a id='about'> About </a> </li>
+        <li><a id='guide'> Guide </a> </li>
         <li><a id='home-link'> Home </a> </li>
-        <li><a id='edit-login-link'> Player </a> </li>
+        <li><a id='about'> About </a> </li>
       </ul>
     </nav>
     <!-- Game page -->

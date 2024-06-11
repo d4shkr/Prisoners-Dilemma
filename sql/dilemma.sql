@@ -24,6 +24,8 @@ CREATE TABLE Dilemma
     Message_Player2 TEXT,
     UpToDate_Player1 BOOLEAN, -- false if visuals need to be updated
     UpToDate_Player2 BOOLEAN,
+    TournamentMemberId1 VARCHAR(36), -- Tournament member ID, associated with this game. NULL if player1 is not a tournament member.
+    TournamentMemberId2 VARCHAR(36) -- Tournament member ID, associated with this game. NULL if player2 is not a tournament member.
     -- Settings:
     MaxRounds INT, -- Total number of rounds in the game
     BothBetrayPayoff INT, -- Payoff if both players betray
@@ -60,8 +62,9 @@ CREATE TABLE TournamentMembers (
     TournamentMemberId VARCHAR(36) NOT NULL PRIMARY KEY,
     TournamentId VARCHAR(36) REFERENCES Tournaments(TournamentId),
     Curr_PlayerId VARCHAR(36) REFERENCES Players(PlayerId),
-    MemberName VARCHAR(12),
+    MemberName VARCHAR(16),
     Score INT, -- Member's Total Score in the tournament
     NumberOfPlayedGames INT, 
-    PreviousOpponentIds JSON -- JSON array of TournamentMemberId of previous opponents (is FIFO clamped to NumberOfMembers - 2)
+    PreviousOpponentIds JSON, -- JSON array of TournamentMemberId of previous opponents (is FIFO clamped to NumberOfMembers - 3)
+    IsAvailable BOOLEAN -- True if member can join a new game
 );

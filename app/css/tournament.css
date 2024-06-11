@@ -64,6 +64,19 @@ nav, article, aside, footer {
     padding: 10px 20px;
 }
 
+#about, #guide, #home-link, div.button {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#about:hover, #guide:hover, #home-link:hover, div.button:hover {
+transform: scale(1.05);
+}
+
+#about:active, #guide:active, #home-link:active, div.button:active {
+transform: translateY(2px);
+}
+
 
 /* main layout */
 main {
@@ -89,10 +102,23 @@ main {
   }
 
 
+  /* Aside settings and nickname */
   
   .container {
     text-align: center;
-    
+    margin-top: 15px;
+  }
+
+  #pencil {
+    display: inline-block;
+  }
+
+  input[type='text'] {
+    border-radius: 6px;
+    border-width: 1px;
+    font-size: large;
+    background-color: #F5DDDD;
+    color: #53687E;
   }
 
 /* Leaderboard */
@@ -101,22 +127,45 @@ main {
   align-items: center;
 }
 
+#headers {
+  align-items: center;
+  margin-bottom: 3px;
+  font-size: large;
+  text-align: center;
+  font-weight: bold;
+  color: #53687ecc;
+  display: flex;
+  flex: 2;
+}
+
 .row {
   align-items: center;
-  border: 1px solid;
+  border: 3px solid;
+  min-height: 40px;
+  vertical-align: middle;
+  border-color: #53687e7d;
   margin-bottom: 10px;
   font-size: x-large;
   text-align: center;
   font-weight: bold;
+  color: #53687E;
+  vertical-align: middle;
+  display: flex;
+  flex: 2;
+}
+
+.row-highlight {
+  background-color: #81ff6892;
 }
 
 .place {
-  display: inline-block;
+  display: inline-block;  
   width: 20%;
 }
 
 .name {
   display: inline-block;
+  overflow: hidden;
   width: 25%;
 }
 
@@ -143,6 +192,7 @@ td, th {
 table {
     text-align: center;
     margin: auto;
+    margin-bottom: 20px;
 }
 
 caption {

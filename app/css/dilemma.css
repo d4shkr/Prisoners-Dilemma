@@ -64,6 +64,18 @@ nav, article, aside, footer {
     padding: 10px 20px;
 }
 
+#about, #guide, #home-link, div.button {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#about:hover, #guide:hover, #home-link:hover, div.button:hover {
+  transform: scale(1.05);
+}
+
+#about:active, #guide:active, #home-link:active, div.button:active {
+  transform: translateY(2px);
+}
 
 /* main layout */
 main {

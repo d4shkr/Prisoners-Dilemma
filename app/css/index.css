@@ -76,6 +76,18 @@ header {
     margin: auto;
   }
 
+#about, #guide, #home-link, div.button {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#about:hover, #guide:hover, #home-link:hover, div.button:hover {
+  transform: scale(1.05);
+}
+
+#about:active, #guide:active, #home-link:active, div.button:active {
+  transform: translateY(2px);
+}
 
 /* Buttons */
 
@@ -99,14 +111,14 @@ div.button {
 }
 
 #start_button {
-    box-shadow: 0 0 5px -1px #912F56;
+    box-shadow: 0 5px 8px -1px #912F56;
 }
 #beb {
-    box-shadow: 0 0 5px -1px #912F56;
+    box-shadow: 0 5px 8px -1px #912F56;
 }
 
 #start_tournament {
-    box-shadow: 0 0 5px -1px #912F56;
+    box-shadow: 0 5px 8px -1px #912F56;
 }
 
 #invite {
@@ -124,7 +136,7 @@ div.button {
 
 .for-join-link {
     text-align: center;
-    width:50%;
+    width:100%;
     background-color:rgba(250, 250, 244, 0.781);
 }
 

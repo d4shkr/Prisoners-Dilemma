@@ -43,9 +43,9 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
     <nav>
     <div id='for-gamenum'> <div id='gamenum'> <h2> Game 1 / 10 </h2> </div> </div>
       <ul>
-        <li><a id='about'> About </a> </li>
+        <li><a id='guide'> Guide </a> </li>
         <li><a id='home-link'> Home </a> </li>
-        <li><a id='edit-login-link'> Player </a> </li>
+        <li><a id='about'> About </a> </li>
       </ul>
     </nav>
     <!-- Tournament page -->
@@ -54,6 +54,12 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
 
             <!-- Leaderboard -->
             <div id='leaderboard'>
+                <div id='headers'>
+                    <div class='place'> Place </div>
+                    <div class='name'> Name </div>
+                    <div class='score'> Score </div>
+                    <div class='gamenum'> Games </div>
+                </div>
                 <div class='row' id='player_1'>
                     <div class='place'> 1 </div>
                     <div class='name'> Masha </div>
@@ -73,10 +79,42 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
         <aside>
             <!-- Change nickname -->
             <div class='container'>
-                <input type='text' id='nickname'> <div id='pencil'> W </div>
+                <input type='text' id='nickname' value='Player 1' maxlength='16' size='16'> <div id='pencil'> ✏️ </div>
             </div>
 
-            <!-- Settings -->
+            <!-- Settings and Payoff matrix -->
+
+            <?php
+          // get Tournament Id from Member ID
+          $member_id = $_SESSION['TournamentMemberId'];
+          $sql_query = "SELECT TournamentId FROM TournamentMembers WHERE TournamentMemberId = '{$member_id}'";
+          $res = mysqli_query($link, $sql_query)->fetch_object();
+
+          $tournament_id = $res->TournamentId;
+
+          // Get setting ans payoffs 
+          $sql_query = "SELECT NumberOfMembers, NumberOfGamesPerMember, MaxRounds, MaxRoundsKnown, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Tournaments WHERE TournamentId = '{$tournament_id}'";
+          $res = mysqli_query($link, $sql_query)->fetch_object();
+
+          echo "<table id='payoff'> 
+            <caption> Payoff matrix </caption>
+            <tr> 
+                <th scope='col'> Pl1, Pl2 </th>
+                <th scope='col'> Cooperate </th>  
+                <th scope='col'> Betray </th>  
+            </tr>
+            <tr> 
+                <th scope='row'> Cooperate </th> 
+                <td> {$res->BothCooperatePayoff}, {$res->BothCooperatePayoff}</td> 
+                <td> {$res->WasBetrayedPayoff}, {$res->HasBetrayedPayoff}</td>
+            </tr>
+            <tr> 
+                <th scope='row'> Betray </th> 
+                <td> {$res->HasBetrayedPayoff}, {$res->WasBetrayedPayoff}</td> 
+                <td> {$res->BothBetrayPayoff}, {$res->BothBetrayPayoff}</td> 
+            </tr>
+        </table>";
+        ?>
             
         </aside>
     </main>

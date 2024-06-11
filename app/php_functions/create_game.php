@@ -25,9 +25,9 @@ $max_round_known = $hide_rounds_num == "true" ? "FALSE" : "TRUE";
 $uuid = bin2hex(random_bytes(18));
 
 // Game: GameId, CurrentRound, GamePhase,
-// Players: PayoffHistory_Player1, PayoffHistory_Player2, Score_Player1, Score_Player2, Status_Player1, Status_Player2, Message_Player1, Message_Player2, UpToDate_Player1, UpToDate_Player2,
+// Players: PayoffHistory_Player1, PayoffHistory_Player2, Score_Player1, Score_Player2, Status_Player1, Status_Player2, Message_Player1, Message_Player2, UpToDate_Player1, UpToDate_Player2, TournamentMemberId1, TournamentMemberId2
 // Settings: MaxRounds, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff, MaxRoundsKnown 
-$sql_query = "INSERT INTO Dilemma VALUES ('{$uuid}', 1, 'Running', '[]', '[]', 0, 0, -1, -1, '', '', FALSE, FALSE, {$number_of_rounds}, {$both_betray_payoff}, {$both_cooperate_payoff}, {$was_betrayed}, {$has_betrayed}, {$max_round_known})";
+$sql_query = "INSERT INTO Dilemma VALUES ('{$uuid}', 1, 'Running', '[]', '[]', 0, 0, -1, -1, '', '', FALSE, FALSE, NULL, NULL, {$number_of_rounds}, {$both_betray_payoff}, {$both_cooperate_payoff}, {$was_betrayed}, {$has_betrayed}, {$max_round_known})";
 mysqli_query($link, $sql_query);
 
 echo $uuid;

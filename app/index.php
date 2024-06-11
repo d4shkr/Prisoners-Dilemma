@@ -15,9 +15,9 @@
     <nav>
     <div id='for-header'> <div id='header'> <h2> Prisoner's Dilemma </h2> </div> </div>
       <ul>
-        <li><a id='about'> About </a> </li>
+        <li><a id='guide'> Guide </a> </li>
         <li><a id='home-link'> Home </a> </li>
-        <li><a id='edit-login-link'> Player </a> </li>
+        <li><a id='about'> About </a> </li>
       </ul>
     </nav>
 
