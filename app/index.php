@@ -21,19 +21,28 @@
       </ul>
     </nav>
 
-    <!--
-    <header>
-
-    <div class="main-heading">
-        <h2><span id="Prisoner's Dilemma">Prisoner's Dilemma</span></h2>
-        <p>This is a round-based multiplayer Prisoner's Dilemma Game</p>
-    </div>  
-    </header>
-    -->
     <main>
 
+    <!-- About Window -->
+    <div id='about-page' class='dim no-display'>
+        <div class='window'> 
+            <p> This is a course project aimed at creating a customizable multiplayer iterated Prisoner's Dilemma game. </p> 
+            <p> Source code can be found on <a href='https://github.com/d4shkr/Prisoners-Dilemma'>github</a>. </p>
+        </div>
+    </div>
+
+    <!-- Guide -->
+    <div id='guide-page' class='dim no-display'>
+        <div class='window'> 
+            <p> You can either create a <b>Quick Game</b> for two people or a <b>Tournament</b> where everyone will play the same number of games against each other. </p> 
+            <p> In the <b>Game Settings</b> section you can configure the rules of the iterated Prisoner's Dilemma. </p>
+            <p>In the <b>Tournament Settings</b> section you can also choose the number of players in the tournament and how many games each of them will play.</p>
+            <p> After <b>creating</b> a game or a tournament, you can <b>copy</b> the <b>invite link</b> and send it to your friends :) </p>
+        </div>
+    </div>
+
     <div class='for-button'>
-        <div class='button selected' id='select_game'> <p> Game </p> </div>
+        <div class='button selected' id='select_game'> <p> Quick Game </p> </div>
         <div class='button' id='select_tournament'> <p> Tournament </p> </div>
     </div>
 
@@ -62,7 +71,7 @@
         <table id='payoff'> 
             <caption> Your Payoff matrix </caption>
             <tr> 
-                <th scope='col'> You, Opp </th>
+                <th scope='col'> You \ Opp </th>
                 <th scope='col'> Cooperate </th>  
                 <th scope='col'> Betray </th>  
             </tr>
@@ -98,7 +107,8 @@
 
     <div class='hidden for-join-link' id='for-join-link'>
         <div id='invite'> <p> Invite link: </p></div>
-        <a id='join_link' target='_blank'> </a>
+        <a id='join_link' target='_blank'> </a> <br>
+        <div id='copy-link-button' class='button'> Copy </div>
     </div>
 </main>
 

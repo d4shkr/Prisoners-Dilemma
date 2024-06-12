@@ -47,6 +47,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
   <head>
     <meta charset="UTF-8" />
     <title>Play Prisoner's dilemma</title>
+    <link rel="stylesheet" href="css/payoff.css">
     <link rel="stylesheet" href="css/dilemma.css">
   </head>
 
@@ -56,8 +57,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
     <div id='for-round'> <div id='round'> <h2> Round 1 </h2> </div> </div>
       <ul>
         <li><a id='guide'> Guide </a> </li>
-        <li><a id='home-link'> Home </a> </li>
-        <li><a id='about'> About </a> </li>
+        <li><a href="/index.php" id='home-link'> Home </a> </li>
       </ul>
     </nav>
     <!-- Game page -->
@@ -93,7 +93,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
           echo "<table id='payoff'> 
             <caption> Payoff matrix </caption>
             <tr> 
-                <th scope='col'> Pl1, Pl2 </th>
+                <th scope='col'> You \ Opp </th>
                 <th scope='col'> Cooperate </th>  
                 <th scope='col'> Betray </th>  
             </tr>

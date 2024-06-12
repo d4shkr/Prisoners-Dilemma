@@ -96,6 +96,30 @@ header {
   transform: translateY(2px);
 }
 
+/* About Window */
+
+.dim {
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: #00000065;
+}
+
+.window {
+  z-index: 2; 
+  border: 2px solid #e092b1;
+  text-align: center;
+  background-color:rgba(250, 250, 244, 0.944);
+  margin: 5%;
+  font-size: large;
+  padding: 10px;
+}
+
+
 /* Buttons */
 
 div.for-button{
@@ -149,14 +173,31 @@ div.selected {
     max-width: 0;
 }
 
+.no-display {
+  display: none;
+}
+
 .hidden {
     visibility: hidden;
 }
 
 .for-join-link {
+    margin-top: 5px;
+    align-items: center;
     text-align: center;
     width:100%;
     background-color:rgba(250, 250, 244, 0.781);
+}
+
+#copy-link-button {
+  text-align: center;
+  width: fit-content;
+  padding: 5px;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: medium;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px -1px #912F56;
 }
 
 /* Settings */
@@ -257,6 +298,9 @@ h3 {
 
   input[type="number"] {
     width: 50px;
+    border-color: #e092b1;
+    color: #912F56;
+    font-weight: bold;
   }
 
   .checkbox label {
@@ -266,6 +310,7 @@ h3 {
   }
   .checkbox input {
     vertical-align: middle;
+    accent-color: #912F56;
   }
   .checkbox label span {
     vertical-align: middle;
