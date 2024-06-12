@@ -136,3 +136,13 @@ $("#nickname").on("keyup", (e) => {
         )
     }
 })
+
+// This function displays the Guide Window when we click the Guide button in the navigation bar
+$("#guide").on("click", () => {
+    $("#guide-page").removeClass("no-display");
+})
+
+// Hide the Guide Window when we click away from it
+$("#guide-page").on("click", () => {
+    $("#guide-page").addClass("no-display");
+})

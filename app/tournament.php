@@ -48,6 +48,17 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
         <li><a href="/index.php" id='home-link'> Home </a> </li>
       </ul>
     </nav>
+
+    <!-- Guide -->
+    <div id='guide-page' class='dim no-display'>
+        <div class='window'> 
+            <p> Each member of the tournament will play the same number of games. </p> 
+            <p> You'll be paired with a free player you haven't played with recently. </p>
+            <p> If there are no such players, you'll have to wait until someone finishes their game. </p>
+            <p> After being paired, click the <b style='color: #7dca6e'> Join Game </b> button to play with your new opponent. </p>
+        </div>
+    </div>
+
     <!-- Tournament page -->
     <main>
         <article>

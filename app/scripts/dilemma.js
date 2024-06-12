@@ -1,5 +1,12 @@
+// Save animation time to let it finish
+var last_animation_time = 0;
+const animation_duration = 500;
 // This function updates Score table on dilemma.php page with data from the database
-function update_scoretable() { 
+function update_scoretable() {
+    // if animation is still playing, don't update the table
+    if (last_animation_time + animation_duration > Date.now()) {
+        return;
+    }
     $.post(
         "php_functions/get_scoretable_data.php",
         {}, // send nothing to the script
@@ -9,6 +16,8 @@ function update_scoretable() {
             const opponent_score = data[1];
             const your_payoff_history = JSON.parse(data[2]);
             const opponent_payoff_history = JSON.parse(data[3]);
+
+            const old_round_count = $('#score tr').length - 2;
 
             var table_str = `<caption> Score </caption>\
             <tr>\
@@ -31,6 +40,12 @@ function update_scoretable() {
 
             // insert html code for the score table
             $("#score").html(table_str);
+
+            // if table has changed, play the animation
+            if (your_payoff_history.length > old_round_count) {
+                $("#score tr:nth-child(3)").addClass("light-up");
+                last_animation_time = Date.now()
+            }
         }
     );
 }
@@ -104,12 +119,11 @@ function display_message() {
         "php_functions/recieve_player_message.php",
         {}, // send nothing to the script
         function (message) { // on response from POST
-            if (!message) { // format: MessageType|Message
+            if (!message) {
                 return;
             }
 
             $("#log-container").prepend(`<footer class="log-footer"> <p>${message}</p> </footer>`);
-            $("#score tr:nth-child(3)").addClass("light-up");
         }
     )
 }
@@ -163,3 +177,12 @@ $("#betray").on("click", () => {
     );
 })
 
+// This function displays the Guide Window when we click the Guide button in the navigation bar
+$("#guide").on("click", () => {
+    $("#guide-page").removeClass("no-display");
+})
+
+// Hide the Guide Window when we click away from it
+$("#guide-page").on("click", () => {
+    $("#guide-page").addClass("no-display");
+})

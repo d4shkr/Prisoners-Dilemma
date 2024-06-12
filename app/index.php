@@ -21,8 +21,6 @@
       </ul>
     </nav>
 
-    <main>
-
     <!-- About Window -->
     <div id='about-page' class='dim no-display'>
         <div class='window'> 
@@ -33,13 +31,15 @@
 
     <!-- Guide -->
     <div id='guide-page' class='dim no-display'>
-        <div class='window'> 
-            <p> You can either create a <b>Quick Game</b> for two people or a <b>Tournament</b> where everyone will play the same number of games against each other. </p> 
-            <p> In the <b>Game Settings</b> section you can configure the rules of the iterated Prisoner's Dilemma. </p>
-            <p>In the <b>Tournament Settings</b> section you can also choose the number of players in the tournament and how many games each of them will play.</p>
-            <p> After <b>creating</b> a game or a tournament, you can <b>copy</b> the <b>invite link</b> and send it to your friends :) </p>
+        <div class='window'>
+            <p> You can either create a <b style='color:#EDADC7'>Quick Game</b> for two people or a <b style='color:#EDADC7'>Tournament</b> where everyone will play the same number of games against each other. </p> 
+            <p> In the <b style='color:#912F56'>Game Settings</b> section you can configure the rules of the iterated Prisoner's Dilemma. </p>
+            <p>In the <b style='color: #912F56'>Tournament Settings</b> section you can also choose the number of players in the tournament and how many games each of them will play.</p>
+            <p> After <b style='color:#EDADC7'>creating</b> a game or a tournament, you can <b style='color:#EDADC7'>copy</b> the <b style='color: #0000EE'>invite link</b> and send it to your friends :) </p>
         </div>
     </div>
+
+    <main>
 
     <div class='for-button'>
         <div class='button selected' id='select_game'> <p> Quick Game </p> </div>
