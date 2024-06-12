@@ -47,6 +47,7 @@ function update_button_area() {
                     $("#action_buttons").removeClass("collapsed");
                     $("#waiting").addClass("collapsed");
                     $("#loader").addClass("collapsed");
+                    $("#tournament-link").addClass("collapsed");
                     break;
                 // if the player chose to betray: hide the action buttons, update and display the waiting message and the loader
                 case 'betrayed':
@@ -54,6 +55,7 @@ function update_button_area() {
                     $("#waiting").html("You chose to <span style='color: #fb89b7'>betray</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
                     $("#loader").removeClass("collapsed");
+                    $("#tournament-link").addClass("collapsed");
                     break;
                 // if the player chose to cooperate: hide the action buttons, update and display the waiting message and the loader
                 case 'cooperated':
@@ -61,6 +63,7 @@ function update_button_area() {
                     $("#waiting").html("You chose to <span style='color: #7dca6e'>cooperate</span>. Waiting for the opponent...");
                     $("#waiting").removeClass("collapsed");
                     $("#loader").removeClass("collapsed");
+                    $("#tournament-link").addClass("collapsed");
                     break;
                 // if the game is finished: hide the action buttons and notify the player
                 case 'finished':
@@ -68,6 +71,13 @@ function update_button_area() {
                     $("#waiting").html("Game Over... bye-bye!");
                     $("#waiting").removeClass("collapsed");
                     $("#loader").addClass("collapsed");
+                    $("#tournament-link").addClass("collapsed");
+                    break;
+                case 'tournament':
+                    $("#action_buttons").addClass("collapsed");
+                    $("#waiting").addClass("collapsed");
+                    $("#loader").addClass("collapsed");
+                    $("#tournament-link").removeClass("collapsed");
             }
         }
     )

@@ -1,13 +1,17 @@
 <?php
-// This function gets the player's choice in the current round (returns 'finished' when the game is finished as an edge case)
+// This function gets the player's choice in the current round (returns 'finished' or 'tournament' when the game is finished as an edge case)
 
 // Get game id and player number 
 include("get_game_id.php");
 
-$sql_query = "SELECT Status_Player{$player_num} AS Status_Player, GamePhase FROM Dilemma WHERE GameId = '{$game_id}'";
+$sql_query = "SELECT Status_Player{$player_num} AS Status_Player, GamePhase, TournamentMemberId1 FROM Dilemma WHERE GameId = '{$game_id}'";
 $res = mysqli_query($link, $sql_query)->fetch_object();
 
 if ($res->GamePhase == 'Finished') {
+    if (isset($res->TournamentMemberId1)) {
+        echo 'tournament';
+        exit;
+    }
     echo 'finished';
     exit;
 }

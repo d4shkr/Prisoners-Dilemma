@@ -2,17 +2,20 @@
 include_once('db.php');
 
 session_start();
+$player_id = NULL;
 if (isset($_COOKIE['TournamentMemberId'])) {
   $member_id = $_COOKIE['TournamentMemberId'];
   $sql_query = "SELECT Curr_PlayerId FROM TournamentMembers WHERE TournamentMemberId = '{$member_id}'";
   if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
     $_SESSION['PlayerId'] = $res[0];
+    $player_id = $res[0];
   }
 }
 
-if (!isset($_SESSION['PlayerId'])) {
+if (!isset($player_id)) {
   if (isset($_COOKIE['PlayerId'])) {
     $_SESSION['PlayerId'] = $_COOKIE['PlayerId'];
+    $player_id = $_COOKIE['PlayerId'];
   } else {
     echo "<div class='error'> Player Id is missing </div>";
     exit;
@@ -111,7 +114,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
 
       <div id='for-buttons-and-waiting-message'>
       <!-- Action Buttons -->
-      <div id='action_buttons'>
+      <div id='action_buttons' class='collapsed'>
         <div class='button' id='cooperate'>
             <p> Cooperate </p>
         </div>
@@ -119,13 +122,18 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
             <p> Betray </p>
         </div>
       </div>
+      <a id="tournament-link" href="/tournament.php" class="collapsed">
+        <div id='tournament-button' class='button'>
+          <p> Return to Tournament page </p>
+        </div>
+      </a>
 
       <!-- Waiting message -->
       <div class='for-loader-and-message'>
-        <div class='for-waiting-message' id='waiting'>
+        <div class='for-waiting-message collapsed' id='waiting'>
           Waiting for other player to choose... 
         </div>
-        <div class='loader-container' id='loader'>
+        <div class='loader-container collapsed' id='loader'>
             <div class='loader-2'></div>
         </div>
       </div>

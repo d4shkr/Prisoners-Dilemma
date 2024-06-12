@@ -60,18 +60,6 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
                     <div class='score'> Score </div>
                     <div class='gamenum'> Games </div>
                 </div>
-                <div class='row' id='player_1'>
-                    <div class='place'> 1 </div>
-                    <div class='name'> Masha </div>
-                    <div class='score'> 0 </div>
-                    <div class='gamenum'> 0 / 10 </div>
-                </div>
-                <div class='row' id='player_2'>
-                    <div class='place'> 2 </div>
-                    <div class='name'> Player 2 </div>
-                    <div class='score'> 50 </div>
-                    <div class='gamenum'> 10 / 10 </div>
-                </div>
             </div>
 
         </article>
@@ -86,7 +74,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
 
             <div id='for-button-and-message'>
               <!-- Join button-->
-              <div id='join-button'>
+              <div id='join-button' class='collapsed'>
                 <a href='/dilemma.php'>
                   <div class='button' id='join'>
                       <p> Join Game </p>
@@ -97,7 +85,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
               <!-- Waiting message -->
               <div class='for-loader-and-message'>
                 <div class='for-waiting-message' id='waiting'>
-                  Waiting for an available player... 
+                  Waiting for everyone to join... 
                 </div>
                 <div class='loader-container' id='loader'>
                     <div class='loader-2'></div>

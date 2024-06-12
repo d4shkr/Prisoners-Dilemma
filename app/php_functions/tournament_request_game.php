@@ -53,7 +53,7 @@ if (!$is_available) {
     exit;
 }
 
-if ($number_of_members > count(json_decode($tournament_res->TournamentMemberIds))) {
+if ($phase == 'Waiting') {
     echo 'joining';
     exit;
 }

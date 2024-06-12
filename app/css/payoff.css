@@ -1,0 +1,37 @@
+/* Payoff Matrix */
+td, th {
+    border: 2px solid #ddd;
+    padding: 8px;
+}
+
+#payoff td {
+    background-color:lavenderblush;
+}
+
+table {
+    text-align: center;
+    margin: auto;
+    margin-bottom: 20px;
+    color:#53687E;
+    font-weight: bold;
+}
+
+caption {
+    color:#912F56;
+    text-transform: uppercase;
+}
+
+#payoff {
+    border-collapse: collapse;
+    width: 20%;
+    margin-top: 20px;
+    table-layout: fixed;
+    width:300px;
+}
+
+#payoff th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #912F56;
+    color: white;
+}

@@ -86,7 +86,13 @@ if (isset($_GET['TournamentId'])) {
             // Update list of tournament members
             $tournament_member_ids_array[] = $uuid;
             $tournament_member_ids_array = json_encode($tournament_member_ids_array);
-            $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}' WHERE TournamentId = '{$tournament_id}'";
+
+            // If the last member is joining, start the tournament
+            if ($current_member_count + 1 == $number_of_members) {
+                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}', TournamentPhase = 'In Progress' WHERE TournamentId = '{$tournament_id}'";
+            } else {
+                $sql_query = "UPDATE Tournaments SET TournamentMemberIds = '{$tournament_member_ids_array}' WHERE TournamentId = '{$tournament_id}'";
+            }
             mysqli_query($link, $sql_query);
 
             setcookie('TournamentMemberId', $uuid, time() + 86400); // expires in a day

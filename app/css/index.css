@@ -1,10 +1,13 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
+    color: #53687E;
 }
 
 main {
     background-color: #F5DDDD;
+    min-height: 800px;
 }
+
 
 /* Header layout */
 
@@ -76,6 +79,10 @@ header {
     margin: auto;
   }
 
+#about, #guide {
+  margin-right: 20px;
+}
+
 #about, #guide, #home-link, div.button {
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -108,17 +115,27 @@ div.button {
     font-size: 130%;
     font-weight: bold;
     margin-top: 15px;
-}
-
-#start_button {
-    box-shadow: 0 5px 8px -1px #912F56;
-}
-#beb {
     box-shadow: 0 5px 8px -1px #912F56;
 }
 
-#start_tournament {
-    box-shadow: 0 5px 8px -1px #912F56;
+div.button:active {
+  background-color: #e092b1;
+  box-shadow: inset 0 3px 4px -1px #912F56;
+}
+
+div.selected {
+  background-color: #e092b1;
+  box-shadow: inset 0 3px 4px -1px #912F56;
+}
+
+#select_game, #select_tournament {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;
+}
+
+#create {
+  width: 400px;
 }
 
 #invite {
@@ -128,6 +145,8 @@ div.button {
  
 .collapsed {
     visibility: collapse;
+    max-height: 0;
+    max-width: 0;
 }
 
 .hidden {
@@ -141,6 +160,26 @@ div.button {
 }
 
 /* Settings */
+
+caption {
+   /*font-weight: normal; */
+  margin: 10px;
+  color:#53687E;
+}
+
+#payoff {
+  margin-bottom: 10px;
+}
+
+h3 {
+  text-transform: uppercase;
+  font-size: large;
+  color: #912F56;
+} 
+
+#settings-container {
+  text-align: center;
+}
 
 .slidecontainer {
     width: 100%; /* Width of the outside container */
@@ -182,9 +221,54 @@ div.button {
   }
 
   .settings {
-    color: #53687E;
     font-weight: bold;
     margin-top: 8px;
+    text-align: center;
+  }
+
+  #tournament-settings {
+    max-height: 150px;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    margin-bottom: 20px;
+  }
+
+  #tournament-settings.collapsed {
+    visibility: visible;
+    max-height: 0px;
+    max-width: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  div.for-tournament-number-settings {
+    text-align: center;
+  }
+
+  div.tournament-number-setting {
+    margin: 0;
+    display: inline-block;
+    min-width: 250px;
+  }
+
+  div.tournament-number-setting.p {
+    margin: 0;
+  }
+
+  input[type="number"] {
+    width: 50px;
+  }
+
+  .checkbox label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .checkbox input {
+    vertical-align: middle;
+  }
+  .checkbox label span {
+    vertical-align: middle;
   }
 
   /* Numbers for the round numbers slider */

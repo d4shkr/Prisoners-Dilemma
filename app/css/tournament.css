@@ -64,6 +64,10 @@ nav, article, aside, footer {
     padding: 10px 20px;
 }
 
+#about, #guide, #home-link {
+  margin-right: 20px;
+}
+
 #about, #guide, #home-link, div.button {
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -299,11 +303,12 @@ caption {
 
 #join {
     text-align: center;
-    background-color:#7dca6e;
+    width: 150px;
+    background-color:#66c362;
 }
 
 #join:active {
-  background-color: #5eaa4f;
+  background-color: #45a342;
 }
 
 div.button {

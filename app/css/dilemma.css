@@ -64,6 +64,10 @@ nav, article, aside, footer {
     padding: 10px 20px;
 }
 
+#about, #guide, #home-link {
+    margin-right: 20px;
+}
+
 #about, #guide, #home-link, div.button {
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -146,6 +150,10 @@ caption {
     height: 300px;
     text-align: center;
     margin-top: auto;
+}
+
+#for-score-table::-webkit-scrollbar { /* hide the scrollbar without impacting scrolling */
+    display: none;
 }
 
 #score {
@@ -233,6 +241,15 @@ div.error {
     background-color:#d86a98;
 }
 
+#tournament-button {
+    background-color: #8db2ff;
+    width: 250px;
+}
+
+#tournament-button:active {
+    background-color: #6f93dd;
+}
+
 a.Hidden {
     text-decoration: none;
 }
@@ -242,6 +259,8 @@ a.Hidden {
 .collapsed {
     visibility: collapse;
     display: none;
+    max-width: 0;
+    max-height: 0;
 }
 
 .hidden {

@@ -85,9 +85,27 @@ $payoff_history2[] = $payoff2;
 $payoff_history1 = json_encode($payoff_history1);
 $payoff_history2 = json_encode($payoff_history2);
 
+// When the game has ended and the players are in a tournament, update their statuses 
 if ($curr_round == $max_round && isset($member_id1) && isset($member_id2)) {
-    $sql_query = "UPDATE TournamentMembers SET IsAvailable = TRUE, NumberOfPlayedGames = NumberOfPlayedGames + 1, Score = Score + CASE TournamentMemberId WHEN '{$member_id1}' THEN {$score1} WHEN '{$member_id2}' THEN {$score2} ELSE 0 END WHERE TournamentMemberId IN ('{$member_id1}', '{$member_id2}')";
-    mysqli_query($link, $sql_query);
+    // get tournament id and number of games by the member id
+    $sql_query = "SELECT TournamentId, NumberOfGamesPerMember FROM Tournaments WHERE TournamentId = (SELECT TournamentId FROM TournamentMembers WHERE TournamentMemberId = '{$member_id1}')";
+    if ($res = mysqli_query($link, $sql_query)->fetch_object()) {
+        $tournament_id = $res->TournamentId;
+        $number_of_games = $res->NumberOfGamesPerMember;
+        $no_more_games = $number_of_games - 1;
+
+        // make the members available if they have games left to play, update played games and score
+        $sql_query = "UPDATE TournamentMembers SET IsAvailable = CASE NumberOfPlayedGames WHEN {$no_more_games} THEN FALSE ELSE TRUE END, NumberOfPlayedGames = NumberOfPlayedGames + 1, Score = Score + CASE TournamentMemberId WHEN '{$member_id1}' THEN {$score1} WHEN '{$member_id2}' THEN {$score2} ELSE 0 END WHERE TournamentMemberId IN ('{$member_id1}', '{$member_id2}')";
+        mysqli_query($link, $sql_query);
+
+        // Check if the tournament is over. We'll pick all the members of this tournament and check whether they have any games left to play
+        
+        // get all the members who have games left to play, and if there are no such players, set the tournament phase complete
+        $sql_query = "UPDATE Tournaments SET TournamentPhase = 'Complete' 
+        WHERE TournamentId = '{$tournament_id}' AND NOT EXISTS
+        (SELECT TournamentId FROM TournamentMembers WHERE TournamentId = '{$tournament_id}' AND NumberOfPlayedGames < {$number_of_games})";
+        mysqli_query($link, $sql_query);
+    }
 }
 
 // Update values in Score table
