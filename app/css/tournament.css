@@ -113,6 +113,18 @@ main {
     display: inline-block;
   }
 
+  input[type='text']:placeholder-shown { /* default text is pale */
+    color: #5f758c27;
+  }
+
+  input[type='text']::placeholder {  /* default text is small */
+    font-size: smaller;
+  }
+
+  input[type='text']:focus::placeholder { /* on focus hide the default text */
+    color: transparent;
+  }
+
   input[type='text'] {
     border-radius: 6px;
     border-width: 1px;
@@ -181,13 +193,13 @@ main {
   width: 20%;
 }
 
-/* Payoff Matrix */
+/* Payoff Matrix and Settings Matrix */
 td, th {
     border: 2px solid #ddd;
     padding: 8px;
 }
 
-#payoff td {
+#payoff td, #settings td {
     background-color:lavenderblush;
 }
 
@@ -195,6 +207,8 @@ table {
     text-align: center;
     margin: auto;
     margin-bottom: 20px;
+    color:#53687E;
+    font-weight: bold;
 }
 
 caption {
@@ -202,31 +216,36 @@ caption {
     text-transform: uppercase;
 }
 
-#for-score-table {
-    text-align: center;
-    margin-top: auto;
-}
-#payoff {
+#payoff, #settings {
     border-collapse: collapse;
     width: 20%;
     margin-top: 20px;
+    table-layout: fixed;
+    width:300px;
 }
 
-#payoff th {
+#payoff th, #settings th {
     padding-top: 10px;
     padding-bottom: 10px;
-    text-align: left;
     background-color: #912F56;
     color: white;
 }
 
-/* score table */
+#settings {
+    width: 200px;
+}
+
+
+/* Score table */
 
 #for-score-table {
     overflow: hidden;
     overflow-y: scroll;
     height: 300px;
+    text-align: center;
+    margin-top: auto;
 }
+
 
 #score {
     border-collapse: collapse;

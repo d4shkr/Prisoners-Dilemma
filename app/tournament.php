@@ -79,7 +79,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
         <aside>
             <!-- Change nickname -->
             <div class='container'>
-                <input type='text' id='nickname' value='' maxlength='16' size='16'> <div id='pencil'> ✏️ </div>
+                <input type='text' id='nickname' value='' placeholder='Change your name here!' maxlength='16' size='16'> <div id='pencil'> ✏️ </div>
             </div>
 
             <!-- Button area -->
@@ -119,6 +119,16 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
             $sql_query = "SELECT NumberOfMembers, NumberOfGamesPerMember, MaxRounds, MaxRoundsKnown, BothBetrayPayoff, BothCooperatePayoff, WasBetrayedPayoff, HasBetrayedPayoff FROM Tournaments WHERE TournamentId = '{$tournament_id}'";
             $res = mysqli_query($link, $sql_query)->fetch_object();
 
+            // prepare for building the 'settings' table. if the number of rounds in a game is hidden, display '???' in that column
+            $rounds = $res->MaxRounds;
+            $is_known = $res->MaxRoundsKnown;
+            if (!$is_known) {
+              $var = intdiv($rounds, 2);
+              if ($var != 0) {        
+                $rounds = ($rounds - $var) . '-' . ($rounds + $var);
+              }
+            }
+
             echo "<table id='payoff'> 
               <caption> Payoff matrix </caption>
               <tr> 
@@ -136,7 +146,20 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
                   <td> {$res->HasBetrayedPayoff}, {$res->WasBetrayedPayoff}</td> 
                   <td> {$res->BothBetrayPayoff}, {$res->BothBetrayPayoff}</td> 
               </tr>
-          </table>";
+          </table>
+          
+          <table id='settings'>
+            <caption> Tournament settings </caption>
+            <tr>
+              <th scope='col'> Members </th>
+              <td> {$res->NumberOfMembers} </td>
+            </tr>
+            <tr>
+              <th scope='col'> Rounds </th>
+              <td> {$rounds} </td>
+            </tr>
+          </table>
+          ";
           ?>
             
         </aside>
