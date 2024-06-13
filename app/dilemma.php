@@ -75,10 +75,6 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
     <!-- Game page -->
     <main>
       <article>
-        <p> 
-          You will play a prisoner's dilemma game repeatedly. 
-          In this game, you and another player must decide simultaneously either to "cooperate" or to "betray". 
-        </p>
 
       <!-- Payoff Matrix -->
       <!-- Создаем таблицу вида:
@@ -121,8 +117,6 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
             </tr>
         </table>";
         ?>
-        
-      <p> Do you want to cooperate or to betray? Please make your next move. </p>
 
       <div id='for-buttons-and-waiting-message'>
       <!-- Action Buttons -->

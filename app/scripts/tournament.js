@@ -124,7 +124,7 @@ $("#nickname").on("keyup", (e) => {
             return;
         }
         if (!$("#nickname").val().match(/^([\w ]{2,16})$/)) {
-            alert("Your name shouldn't consist only of latin letters, numbers, spaces and underscores.");
+            alert("Your name should consist only of latin letters, numbers, spaces and underscores.");
             return;
         }
         $.post (

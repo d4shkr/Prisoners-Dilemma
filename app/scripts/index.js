@@ -103,5 +103,9 @@ $("#guide-page").on("click", () => {
 
 // Copy link on button press
 $("#copy-link-button").on("click", () => {
-    navigator.clipboard.writeText($("#join_link").text())
+    try {
+        navigator.clipboard.writeText($("#join_link").text())
+    } catch (err) {
+        alert("sorry, we don't have https :(")
+    }
 })
