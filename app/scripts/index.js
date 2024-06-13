@@ -16,8 +16,32 @@ $("#select_tournament").on("click", () => {
     tournament = true;
 })
 
+// Helper function that clamps a number between two values
+function clamp(number, min, max) {
+    return Math.max(min, Math.min(number, max));
+  }
+
+// Set all number fields back to acceptable values
+function fix_number_fields() {
+    $("#both_cooperate").val(Math.round($("#both_cooperate").val()))
+    $("#both_betray").val(Math.round($("#both_betray").val()))
+    $("#was_betrayed").val(Math.round($("#was_betrayed").val()))
+    $("#has_betrayed").val(Math.round($("#has_betrayed").val()))
+    $("#number_of_players").val(clamp(Math.round($("#number_of_players").val()), 3, 99))
+    $("#number_of_games_per_player").val(clamp(Math.round($("#number_of_games_per_player").val()), 1, 99))
+}
+
+// Fix number field values when element loses focus
+$("#both_cooperate").on("blur", fix_number_fields)
+$("#both_betray").on("blur", fix_number_fields)
+$("#was_betrayed").on("blur", fix_number_fields)
+$("#has_betrayed").on("blur", fix_number_fields)
+$("#number_of_players").on("blur", fix_number_fields)
+$("#number_of_games_per_player").on("blur", fix_number_fields)
+
 // Generate a game or a tournament depending on what was chosen
 $("#create").on("click", () => {
+    fix_number_fields();
     var display_link = function (tag, uuid) {
         const join_link = window.window.location.protocol + '//' + window.location.hostname + "/join.php?" + tag + "=" + uuid;
         $("#join_link").text(join_link);
