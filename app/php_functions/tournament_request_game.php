@@ -64,10 +64,16 @@ if ($phase == 'Waiting') {
 
 $opponents_tuple_string = substr($opponents, 1, strlen($opponents) - 2);    
 // Get tournament member id and PreviousOpponentIds of all probably available opponents
+// We'll sort these probably available opponents by their number of played games in ASCENDING order, 
+// ... so that players with less games played would have a HIGHER pripority. Исключаем ситуации вида: при настройках с пятью игроками и двумя играми на человека №1 сыграл две игры с №2 и №4, №3 сыграл две игры с №2 и №4, №5 ни с кем не играл.
 if (empty($opponents_tuple_string)) {
-    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId != '{$member_id}'";
+    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers 
+    WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId != '{$member_id}' 
+    ORDER BY NumberOfPlayedGames ASC";
 } else {
-    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId NOT IN ('{$member_id}', {$opponents_tuple_string})";
+    $sql_query = "SELECT TournamentMemberId, PreviousOpponentIds FROM TournamentMembers 
+    WHERE IsAvailable = TRUE AND TournamentId = '{$tournament_id}' AND TournamentMemberId NOT IN ('{$member_id}', {$opponents_tuple_string}) 
+    ORDER BY NumberOfPlayedGames ASC";
 }
 // we need to check whether we are NOT in our probable opponent's 'black list', so we have to run through all probably available opponents until we find 'the one'
 while ($res = mysqli_query($link, $sql_query)->fetch_object()) {
