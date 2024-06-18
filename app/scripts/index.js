@@ -53,23 +53,28 @@ $("#create").on("click", () => {
         $("#for-join-link").removeClass("hidden");
     }
     if (tournament) {
-        $.post(
-            "php_functions/create_tournament.php",
-            // Game and Tournament settings
-            {
-                "number_of_rounds": $("#rounds_range").val(), 
-                "hide_rounds_num" : $("#hide_number_of_rounds_checkbox").prop("checked"),
-                "both_cooperate_payoff" : $("#both_cooperate").val(), 
-                "both_betray_payoff" : $("#both_betray").val(), 
-                "was_betrayed_payoff" : $("#was_betrayed").val(), 
-                "has_betrayed_payoff" : $("#has_betrayed").val(),
-                "number_of_players" : $("#number_of_players").val(),
-                "number_of_games" : $("#number_of_games_per_player").val()
-            }, // send data to the script
-            function (uuid) { // on response from POST
-                display_link("TournamentId", uuid)
-            }
-        );
+        // Check if a tournament with such settings can be created:
+        if ($("#rounds_range").val() * $("#number_of_games_per_player").val() % 2 != 0) {
+            alert("Sorry, we can't create a tournament with these settings, because the total number of games has to be even. Please increase or decrease the number of games by one. ");
+        } else {
+            $.post(
+                "php_functions/create_tournament.php",
+                // Game and Tournament settings
+                {
+                    "number_of_rounds": $("#rounds_range").val(), 
+                    "hide_rounds_num" : $("#hide_number_of_rounds_checkbox").prop("checked"),
+                    "both_cooperate_payoff" : $("#both_cooperate").val(), 
+                    "both_betray_payoff" : $("#both_betray").val(), 
+                    "was_betrayed_payoff" : $("#was_betrayed").val(), 
+                    "has_betrayed_payoff" : $("#has_betrayed").val(),
+                    "number_of_players" : $("#number_of_players").val(),
+                    "number_of_games" : $("#number_of_games_per_player").val()
+                }, // send data to the script
+                function (uuid) { // on response from POST
+                    display_link("TournamentId", uuid)
+                }
+            );
+        }
     } else {
         $.post(
         "php_functions/create_game.php",
