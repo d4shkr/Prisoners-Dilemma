@@ -51,7 +51,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
 
     <!-- Guide -->
     <div id='guide-page' class='dim no-display'>
-        <div class='window'> 
+        <div class='window popout'> 
             <p> Each member of the tournament will play the same number of games. </p> 
             <p> You'll be paired with a free player you haven't played with recently. </p>
             <p> If there are no such players, you'll have to wait until someone finishes their game. </p>

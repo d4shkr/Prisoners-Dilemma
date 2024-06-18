@@ -23,7 +23,7 @@
 
     <!-- About Window -->
     <div id='about-page' class='dim no-display'>
-        <div class='window'> 
+        <div class='window popout'> 
             <p> This is a course project aimed at creating a customizable multiplayer iterated Prisoner's Dilemma game. </p> 
             <p> Source code can be found on <a href='https://github.com/d4shkr/Prisoners-Dilemma'>github</a>. </p>
         </div>
@@ -31,7 +31,7 @@
 
     <!-- Guide -->
     <div id='guide-page' class='dim no-display'>
-        <div class='window'>
+        <div class='window popout'>
             <p> You can either create a <b style='color:#EDADC7'>Quick Game</b> for two people or a <b style='color:#EDADC7'>Tournament</b> where everyone will play the same number of games against each other. </p> 
             <p> In the <b style='color:#912F56'>Game Settings</b> section you can configure the rules of the iterated Prisoner's Dilemma. </p>
             <p>In the <b style='color: #912F56'>Tournament Settings</b> section you can also choose the number of players in the tournament and how many games each of them will play.</p>

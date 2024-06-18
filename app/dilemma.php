@@ -63,7 +63,7 @@ if ($res = mysqli_query($link, $sql_query)->fetch_row()) {
 
     <!-- Guide -->
     <div id='guide-page' class='dim no-display'>
-        <div class='window'> 
+        <div class='window popout'> 
             <p> You will play a Prisoner's Dilemma game repeatedly. </p>
             <p> In this game, you and another player must decide simultaneously either to <b style='color: #7dca6e'>cooperate</b> or to <b style='color: #fb89b7'>betray</b>.</p> 
             <p> Your goal is to maximize <b> your </b> score, <b> not </b> to get more points than your opponent. </p>
